@@ -1,5 +1,5 @@
 # sober 风格主题配置
-# 极简 · 侧边栏 · 深浅色 · 动态时间线
+# 极简 · 侧边栏 · 深浅色 · 动态滚动框
 
 # 导航菜单（值为站点根路径下的绝对路径，会自动拼接 /mys/ 前缀）
 menu:
@@ -21,19 +21,14 @@ copyright: "本站内容采用知识共享署名 4.0 国际许可协议"
 # ===== 侧边栏（tobylai.fun 风格）=====
 sidebar:
   enable: true
-  avatar: ""                    # 头像 URL（可选，留空显示首字母）
+  avatar: ""                          # 头像 URL（可选，留空显示首字母）
   slogan: "focusing on interesting things"   # 标语
   bio: "喜欢做项目，热爱 Web 开发、软件工程和一些 DIY。大部分都是写着玩的。"   # 简介
   social:
     GitHub: "https://github.com/caogenfunan123"
     # Email: "mailto:xxx@example.com"
-    # RSS: "/atom.xml"
+  dynamics_count: 6                  # 动态框展示条数
+  dynamics_more: 查看更多动态 →
 
-# ===== 首页（tobylai.fun 首页直接展示动态时间线）=====
-home:
-  show_dynamics: true    # 首页显示动态时间线（true）还是文章列表（false）
-  dynamics_count: 5      # 首页展示最近几条动态
-  dynamics_more: 查看更多动态
-
-# 动态页标题
+# ===== 动态 =====
 dynamics_title: 动态
