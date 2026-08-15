@@ -1,26 +1,28 @@
-<% page.posts.each(function(post){ %>
-<article class="post-card">
-  <h2 class="post-title">
-    <a href="<%- url_for(post.path) %>"><%= post.title %></a>
-  </h2>
-  <div class="post-meta">
-    <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
-    <% if (post.tags && post.tags.length) { %>
-    <span class="post-tags">
-      <% post.tags.each(function(tag){ %>
-      <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
-      <% }) %>
-    </span>
+<% if (theme.profile) { %>
+<section class="home-section">
+  <h2 class="section-title"><%= theme.profile.title || '关于' %></h2>
+  <div class="profile-content">
+    <p><%= theme.profile.content %></p>
+    <% if (theme.profile.more_text) { %>
+    <p class="profile-more"><%= theme.profile.more_text %></p>
     <% } %>
   </div>
-  <% if (post.excerpt) { %>
-  <div class="post-excerpt"><%- post.excerpt %></div>
-  <% } %>
-</article>
-<% }) %>
+</section>
+<% } %>
 
-<% if (page.total > 1) { %>
-<nav class="pagination">
-  <%- paginator({ prev_text: '← 上一页', next_text: '下一页 →' }) %>
-</nav>
+<% if (site.data.dynamics && site.data.dynamics.length) { %>
+<section class="home-section">
+  <h2 class="section-title"><%= theme.dynamics.title || '动态' %></h2>
+  <div class="dynamics home-dynamics">
+    <% site.data.dynamics.slice(0, theme.dynamics.count || 5).forEach(function(item){ %>
+    <div class="dynamic-item">
+      <div class="dynamic-date"><%= item.date %></div>
+      <div class="dynamic-content"><%- md(item.content) %></div>
+    </div>
+    <% }) %>
+  </div>
+  <% if (theme.dynamics.more_link) { %>
+  <a class="dynamics-more" href="<%- url_for(theme.dynamics.more_link) %>"><%= theme.dynamics.more_text || '查看更多动态' %></a>
+  <% } %>
+</section>
 <% } %>
