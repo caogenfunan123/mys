@@ -1,34 +1,41 @@
 # sober 风格主题配置
-# 极简 · 侧边栏 · 深浅色 · 动态滚动框
+# 全面复刻 tobylai.fun (sober 2.x) 布局：左侧固定边栏 + 右侧内容区
 
-# 导航菜单（值为站点根路径下的绝对路径，会自动拼接 /mys/ 前缀）
+# 导航菜单（值为站点根路径下的绝对路径，自动拼接 /mys/ 前缀）
 menu:
   首页: /
-  文章: /archives/
+  文章: /posts/
   标签: /tags/
   分类: /categories/
-  归档: /archives/
+  归档: /archive/
   友链: /friends/
   关于: /about/
   动态: /dynamics/
 
-# 站点图标（可选，放 source 目录或 CDN）
+# 站点图标（可选）
 favicon: ""
 
-# 页脚版权补充文案（可选，支持 HTML）
-copyright: "本站内容采用知识共享署名 4.0 国际许可协议"
-
-# ===== 侧边栏（tobylai.fun 风格）=====
+# 左侧固定边栏
 sidebar:
   enable: true
-  avatar: ""                          # 头像 URL（可选，留空显示首字母）
-  slogan: "focusing on interesting things"   # 标语
-  bio: "喜欢做项目，热爱 Web 开发、软件工程和一些 DIY。大部分都是写着玩的。"   # 简介
-  social:
-    GitHub: "https://github.com/caogenfunan123"
-    # Email: "mailto:xxx@example.com"
-  dynamics_count: 6                  # 动态框展示条数
-  dynamics_more: 查看更多动态 →
+  avatar: ""                     # 头像 URL（留空用名字首字）
+  description: focusing on interesting things
+  github: https://github.com/caogenfunan123
+  bio: 在搞信息学竞赛，对编程和计算机科学很感兴趣。喜欢折腾。
 
-# ===== 动态 =====
-dynamics_title: 动态
+# 首页"关于"区块
+profile:
+  title: 关于
+  content: 喜欢做项目，热爱 Web 开发、软件工程和一些 DIY。项目可以去我的 GitHub 看看。
+  more_text: 最近在折腾什么？大部分都是写着玩的。
+
+# 动态区块
+dynamics:
+  title: 动态
+  count: 5                       # 首页显示最新几条
+  more_text: 查看更多动态
+  more_link: /dynamics/
+
+# 页脚
+footer:
+  copyright: 本站内容采用知识共享署名 4.0 国际许可协议
