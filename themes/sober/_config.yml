@@ -18,7 +18,7 @@ favicon: ""
 # 左侧固定边栏
 sidebar:
   enable: true
-  avatar: ""                     # 头像 URL（留空用名字首字）
+  avatar: "https://cdn.jsdelivr.net/gh/caogenfunan123/xiamend@main/images/img_1786797917490.png"
   description: focusing on interesting things
   github: https://github.com/caogenfunan123
   bio: 在搞信息学竞赛，对编程和计算机科学很感兴趣。喜欢折腾。
