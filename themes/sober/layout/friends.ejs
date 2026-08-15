@@ -1,0 +1,20 @@
+<h1 class="page-title">友情链接</h1>
+<p class="friends-intro">友情链接列表。在评论区中申请。可在您的网站下添加以下内容作为本站友链：</p>
+<div class="friends-self">
+  <div class="friend-self-name"><%= config.title %> / @<%= config.author || '' %></div>
+  <div class="friend-self-desc"><%= config.subtitle || theme.sidebar.description %></div>
+  <div class="friend-self-link"><%- url_for('/') %></div>
+</div>
+<div class="friends-list">
+  <% if (site.data.friends && site.data.friends.length) {
+       site.data.friends.forEach(function(f){ %>
+  <a class="friend-card" href="<%= f.link %>" target="_blank" rel="noopener">
+    <div class="friend-name"><%= f.name %></div>
+    <div class="friend-desc"><%= f.desc %></div>
+    <div class="friend-link"><%= f.link %></div>
+  </a>
+  <%   });
+     } else { %>
+  <p class="friends-empty">还没有友链，去 <code>source/_data/friends.yml</code> 添加。</p>
+  <% } %>
+</div>
