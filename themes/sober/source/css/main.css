@@ -1,6 +1,7 @@
 /* ============================================
    sober 2.x 风格主题样式（复刻 tobylai.fun）
-   左侧固定边栏 + 右侧内容区 · 极简 · 深浅色
+   左侧固定边栏（卡片式）+ 右侧内容区
+   参考主流主题（NexT/Butterfly/Fluid）侧边栏组件化做法
    ============================================ */
 
 :root {
@@ -12,6 +13,7 @@
   --border: #ececec;
   --code-bg: #f4f4f5;
   --radius: 10px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 html[data-theme="dark"] {
@@ -22,6 +24,7 @@ html[data-theme="dark"] {
   --accent: #60a5fa;
   --border: #2a2a2e;
   --code-bg: #232326;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 * { box-sizing: border-box; }
@@ -44,7 +47,7 @@ a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
 a:hover { opacity: 0.75; }
 
 .container {
-  max-width: 1020px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -117,56 +120,62 @@ a:hover { opacity: 0.75; }
 /* ============ 两栏布局 ============ */
 .layout {
   display: flex;
-  gap: 48px;
+  gap: 32px;
   align-items: flex-start;
 }
 
-/* ---------- 左侧固定边栏 ---------- */
+/* ---------- 左侧固定边栏（卡片式） ---------- */
 .sidebar {
-  width: 230px;
+  width: 280px;
   flex-shrink: 0;
   position: sticky;
   top: 88px;
-  padding: 24px 0;
-}
-
-.sidebar-inner {
+  padding: 32px 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+  gap: 20px;
+}
+
+.sidebar-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
 }
 
 .sidebar-avatar {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 .avatar-fallback {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--accent);
 }
 
 .sidebar-name {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: -0.01em;
+  margin-bottom: 2px;
 }
 
 .sidebar-desc {
   font-size: 13px;
   color: var(--muted);
   line-height: 1.5;
+  margin-bottom: 8px;
 }
 
 .sidebar-github {
@@ -177,11 +186,56 @@ a:hover { opacity: 0.75; }
 
 .sidebar-bio {
   margin-top: 12px;
-  padding-top: 14px;
+  padding-top: 12px;
   border-top: 1px dashed var(--border);
   font-size: 13px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+/* 侧边栏动态卡片 */
+.sidebar-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.sidebar-dynamic {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.sidebar-dynamic:last-of-type { border-bottom: none; }
+
+.sidebar-dynamic-date {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sidebar-dynamic-content {
+  font-size: 13px;
+  line-height: 1.6;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sidebar-dynamic-content p { margin: 2px 0; }
+.sidebar-dynamic-content code {
+  background: var(--code-bg);
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.sidebar-dynamics-more {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
 }
 
 /* ---------- 右侧内容区 ---------- */
@@ -513,15 +567,16 @@ a:hover { opacity: 0.75; }
 .site-footer p { margin: 4px 0; }
 
 /* ============ 响应式 ============ */
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .layout { flex-direction: column; gap: 24px; }
   .sidebar {
     width: 100%;
     position: static;
     padding: 20px 0 0;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  .sidebar-inner { align-items: center; text-align: center; }
-  .sidebar-bio { border-top: none; margin-top: 0; padding-top: 0; }
+  .sidebar-card { flex: 1; min-width: 240px; }
   .site-main { padding-top: 8px; }
 }
 
@@ -533,6 +588,8 @@ a:hover { opacity: 0.75; }
   .archive-item { flex-wrap: wrap; }
   .archive-meta { margin-left: 0; text-align: left; width: 100%; }
   .friends-list { grid-template-columns: 1fr; }
+  .sidebar { flex-direction: column; }
+  .sidebar-card { min-width: 0; }
 }
 
 /* 过渡动画 */
