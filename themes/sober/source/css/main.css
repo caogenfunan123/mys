@@ -1,6 +1,6 @@
 /* ============================================
    sober 风格主题样式
-   极简 · 侧边栏 · 深浅色 · 动态时间线
+   极简 · 侧边栏 · 深浅色 · 动态滚动框
    ============================================ */
 
 :root {
@@ -13,7 +13,6 @@
   --code-bg: #f4f4f5;
   --radius: 10px;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --sidebar-w: 280px;
 }
 
 html[data-theme="dark"] {
@@ -47,12 +46,20 @@ a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
 a:hover { opacity: 0.75; }
 
 .container {
-  max-width: 1120px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* ---------- 头部 ---------- */
+/* ============ 两栏布局 ============ */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ============ 头部 ============ */
 .site-header {
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -67,23 +74,31 @@ a:hover { opacity: 0.75; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  height: 60px;
+  height: 64px;
   flex-wrap: wrap;
 }
 
 .brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
 
 .site-name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text);
   white-space: nowrap;
 }
 
+.site-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .site-nav {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   flex-wrap: wrap;
 }
 
@@ -102,32 +117,32 @@ a:hover { opacity: 0.75; }
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--text);
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1;
   transition: transform 0.3s ease;
   flex-shrink: 0;
 }
 .theme-toggle:hover { transform: rotate(20deg); }
 
-/* ---------- 两栏布局 ---------- */
-.layout {
-  display: grid;
-  grid-template-columns: var(--sidebar-w) 1fr;
-  gap: 48px;
-  align-items: start;
-  padding-top: 40px;
-  padding-bottom: 48px;
+/* ============ 主体 ============ */
+.site-main {
+  min-height: calc(100vh - 190px);
+  padding: 48px 0 64px;
+  min-width: 0;
 }
 
-/* ---------- 侧边栏 ---------- */
+/* ============ 侧边栏 ============ */
 .sidebar {
   position: sticky;
-  top: 84px;
-  align-self: start;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
 }
 
 .sidebar-card {
@@ -135,163 +150,132 @@ a:hover { opacity: 0.75; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 28px 24px;
-  text-align: center;
+  padding: 24px;
 }
 
+/* 个人卡片 */
 .sidebar-avatar {
-  width: 84px;
-  height: 84px;
-  margin: 0 auto 16px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: var(--code-bg);
-  border: 2px solid var(--border);
+  overflow: hidden;
+  background: var(--accent);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-}
-
-.sidebar-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.sidebar-avatar span {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
-  color: var(--accent);
+  margin-bottom: 14px;
 }
+
+.sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 .sidebar-name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .sidebar-slogan {
   font-size: 13px;
   color: var(--accent);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .sidebar-bio {
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 16px;
-  word-break: break-word;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
 .sidebar-social {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 8px;
 }
 
 .social-link {
-  display: inline-block;
-  font-size: 13px;
-  padding: 5px 12px;
+  font-size: 12px;
+  padding: 4px 10px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  color: var(--text);
-  transition: border-color 0.2s, color 0.2s, transform 0.2s;
-}
-
-.social-link:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
-  opacity: 1;
-}
-
-/* ---------- 主体 ---------- */
-.site-main {
-  min-width: 0;
-}
-
-/* ---------- 首页动态时间线 ---------- */
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin: 0 0 28px;
-}
-
-.dynamics {
-  position: relative;
-  padding-left: 28px;
-}
-
-.dynamics::before {
-  content: "";
-  position: absolute;
-  left: 7px;
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  background: var(--border);
-}
-
-.dynamic-item {
-  position: relative;
-  padding: 0 0 28px 0;
-}
-
-.dynamic-item::before {
-  content: "";
-  position: absolute;
-  left: -28px;
-  top: 8px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg);
-  box-shadow: 0 0 0 2px var(--accent);
-}
-
-.dynamic-date {
-  font-size: 13px;
   color: var(--muted);
-  margin-bottom: 6px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.social-link:hover { color: var(--accent); border-color: var(--accent); opacity: 1; }
+
+/* 动态卡片标题 */
+.sidebar-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ★★★ 动态滚动框：固定高度，内部滚动，页面不滚 ★★★ */
+.sidebar-dynamics {
+  max-height: 380px;
+  overflow-y: auto;
+  overscroll-behavior: contain;   /* 滚动到边界不带动页面 */
+  padding-right: 6px;
+  scrollbar-width: thin;          /* Firefox 细滚动条 */
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Webkit 自定义滚动条 */
+.sidebar-dynamics::-webkit-scrollbar { width: 5px; }
+.sidebar-dynamics::-webkit-scrollbar-track { background: transparent; }
+.sidebar-dynamics::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.sidebar-dynamics::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+.sd-item {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.sd-item:last-child { border-bottom: none; }
+
+.sd-date {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
   font-variant-numeric: tabular-nums;
 }
 
-.dynamic-content {
-  font-size: 15px;
+.sd-content {
+  font-size: 13px;
+  line-height: 1.6;
   white-space: pre-line;
   word-break: break-word;
+  color: var(--text);
 }
 
-.dynamics-empty { color: var(--muted); }
+.sd-empty { color: var(--muted); font-size: 13px; }
 
-.dynamics-more {
-  margin-top: 8px;
-  font-size: 14px;
+.sd-more {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
 }
-.dynamics-more a {
-  color: var(--muted);
-  border-bottom: 1px dashed var(--muted);
-  padding-bottom: 2px;
-}
-.dynamics-more a:hover { color: var(--accent); border-color: var(--accent); }
+.sd-more a { color: var(--muted); }
+.sd-more a:hover { color: var(--accent); opacity: 1; }
 
-/* ---------- 文章卡片 ---------- */
+/* ============ 首页文章卡片 ============ */
 .post-card {
-  padding: 24px 4px;
+  padding: 28px 4px;
   border-bottom: 1px solid var(--border);
 }
 
 .post-card:first-child { padding-top: 4px; }
 
 .post-title {
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.01em;
   margin: 0 0 10px;
@@ -316,7 +300,7 @@ a:hover { opacity: 0.75; }
 
 .post-excerpt { color: var(--muted); font-size: 15px; }
 
-/* ---------- 文章页 ---------- */
+/* ============ 文章页 ============ */
 .post-header { margin-bottom: 32px; }
 
 .post-header .post-title { font-size: 30px; }
@@ -392,7 +376,14 @@ a:hover { opacity: 0.75; }
 
 .post-content hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 
-/* ---------- 归档 / 列表 ---------- */
+/* ============ 归档 / 列表 ============ */
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 32px;
+}
+
 .archive-list { display: flex; flex-direction: column; }
 
 .archive-item {
@@ -413,7 +404,7 @@ a:hover { opacity: 0.75; }
 .archive-item a { color: var(--text); }
 .archive-item a:hover { color: var(--accent); }
 
-/* ---------- 标签云 / 分类 ---------- */
+/* ============ 标签云 / 分类 ============ */
 .tag-cloud, .category-list { display: flex; flex-wrap: wrap; gap: 12px; }
 
 .tag-item, .category-item {
@@ -437,7 +428,56 @@ a:hover { opacity: 0.75; }
 
 .tag-count, .category-count { color: var(--muted); font-size: 12px; }
 
-/* ---------- 分页 ---------- */
+/* ============ 动态完整页（时间线） ============ */
+.dynamics {
+  position: relative;
+  padding-left: 28px;
+}
+
+.dynamics::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--border);
+}
+
+.dynamic-item {
+  position: relative;
+  padding: 0 0 28px 0;
+}
+
+.dynamic-item::before {
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.dynamic-date {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.dynamic-content {
+  font-size: 15px;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.dynamics-empty { color: var(--muted); }
+
+/* ============ 分页 ============ */
 .pagination {
   display: flex;
   justify-content: space-between;
@@ -457,7 +497,7 @@ a:hover { opacity: 0.75; }
 .page-number, .extend { margin: 0 4px; color: var(--muted); }
 .page-number.current { color: var(--accent); font-weight: 600; }
 
-/* ---------- 文章上下篇 ---------- */
+/* ============ 文章上下篇 ============ */
 .post-nav {
   display: flex;
   justify-content: space-between;
@@ -471,7 +511,7 @@ a:hover { opacity: 0.75; }
 .post-nav a:hover { color: var(--accent); }
 .post-nav-next { text-align: right; }
 
-/* ---------- 页脚 ---------- */
+/* ============ 页脚 ============ */
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 32px 0 40px;
@@ -481,30 +521,21 @@ a:hover { opacity: 0.75; }
 }
 .site-footer p { margin: 4px 0; }
 
-/* ---------- 响应式 ---------- */
+/* ============ 响应式 ============ */
 @media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding-top: 32px;
-  }
-  .sidebar {
-    position: static;
-    max-width: 420px;
-    margin: 0 auto;
-    width: 100%;
-  }
-  .header-inner { height: auto; padding: 12px 0; }
-  .site-nav { order: 3; width: 100%; justify-content: flex-start; }
-  .site-main { padding-top: 8px; }
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { display: none; }   /* 移动端隐藏侧边栏，保持清爽 */
 }
 
 @media (max-width: 640px) {
+  .header-inner { height: auto; padding: 14px 0; }
+  .site-nav { order: 3; width: 100%; justify-content: flex-start; }
+  .site-main { padding-top: 32px; }
   .post-header .post-title { font-size: 24px; }
   .archive-item { flex-direction: column; gap: 2px; }
 }
 
-/* 过渡动画 */
+/* ============ 过渡动画 ============ */
 .post-card, .dynamic-item, .page, .post { animation: fadeUp 0.4s ease both; }
 
 @keyframes fadeUp {
