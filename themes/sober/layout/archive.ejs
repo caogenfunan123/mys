@@ -2,6 +2,7 @@
 <%
   var groups = {};
   site.posts.sort('date', -1).each(function(post){
+    if (post.type === 'dynamic') return; // 说说不混入归档
     var y = date(post.date, 'YYYY');
     if (!groups[y]) groups[y] = [];
     groups[y].push(post);
