@@ -1,6 +1,8 @@
 <h1 class="page-title">文章</h1>
 <div class="post-list">
-  <% site.posts.sort('date', -1).each(function(post){ %>
+  <% site.posts.sort('date', -1).each(function(post){
+     if (post.type === 'dynamic') return; // 说说不混入文章列表
+  %>
   <article class="post-list-item">
     <h2 class="post-list-title">
       <a href="<%- url_for(post.path) %>"><%= post.title %></a>
@@ -9,6 +11,7 @@
     <div class="post-list-excerpt"><%- post.excerpt %></div>
     <% } %>
     <div class="post-list-meta">
+      <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
       <% if (post.categories && post.categories.length) { %>
       <span class="post-list-cats">
         <% post.categories.each(function(cat){ %>
