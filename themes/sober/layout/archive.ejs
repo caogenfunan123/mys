@@ -1,14 +1,25 @@
 <h1 class="page-title">归档</h1>
-<div class="archive-list">
-  <% page.posts.each(function(post){ %>
+<%
+  var groups = {};
+  site.posts.sort('date', -1).each(function(post){
+    var y = date(post.date, 'YYYY');
+    if (!groups[y]) groups[y] = [];
+    groups[y].push(post);
+  });
+%>
+<% for (var year in groups) { %>
+<div class="archive-year">
+  <h2 class="archive-year-title"><%= year %></h2>
+  <div class="archive-year-count"><%= groups[year].length %> 篇文章</div>
+  <% groups[year].forEach(function(post){ %>
   <div class="archive-item">
-    <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+    <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'MM-DD') %></time>
     <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    <span class="archive-meta">
+      <% if (post.categories && post.categories.length) { %><%= post.categories.map(function(c){ return c.name; }).join(' ') %><% } %>
+      <% if (post.tags && post.tags.length) { %>#<%= post.tags.map(function(t){ return t.name; }).join(' #') %><% } %>
+    </span>
   </div>
   <% }) %>
 </div>
-<% if (page.total > 1) { %>
-<nav class="pagination">
-  <%- paginator({ prev_text: '← 上一页', next_text: '下一页 →' }) %>
-</nav>
 <% } %>
