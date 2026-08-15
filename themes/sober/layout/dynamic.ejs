@@ -5,11 +5,11 @@
   <% if (dynItems.length) { dynItems.forEach(function(item){ %>
   <div class="dynamic-item">
     <div class="dynamic-date"><%= ddate(item.date) %></div>
-    <% if (item.title) { %><div class="dynamic-title"><%= item.title %></div><% } %>
+    <% if (item.title && item.title !== '未命名') { %><div class="dynamic-title"><%= item.title %></div><% } %>
     <% if (item.raw) { %>
     <div class="dynamic-content"><%- md(item.content) %></div>
     <% } else { %>
-    <div class="dynamic-content"><%= item.content %></div>
+    <div class="dynamic-content"><%- item.content %></div>
     <% } %>
     <% if (item.link) { %><a class="dynamic-post-link" href="<%= item.link %>">查看全文 →</a><% } %>
   </div>
