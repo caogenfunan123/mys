@@ -21,7 +21,7 @@ source_dir: source
 public_dir: public
 
 # 主题
-theme: syefe
+theme: sober
 
 # 部署
 deploy:
