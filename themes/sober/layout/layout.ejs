@@ -16,7 +16,7 @@
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=3">
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
@@ -43,7 +43,7 @@
   <div class="container layout">
     <% if (theme.sidebar && theme.sidebar.enable) { %>
     <aside class="sidebar">
-      <!-- 头像/资料卡片 -->
+      <!-- 资料卡片 -->
       <div class="sidebar-card">
         <div class="sidebar-avatar">
           <% if (theme.sidebar.avatar) { %>
@@ -62,16 +62,18 @@
         <% } %>
       </div>
 
-      <!-- 最新动态卡片（内嵌动态） -->
+      <!-- 最新动态卡片（内嵌可滚动框） -->
       <% if (dynamics.length) { %>
       <div class="sidebar-card sidebar-dynamics-card">
         <div class="sidebar-card-title">⚡ 最新动态</div>
-        <% dynamics.slice(0, theme.sidebar.dynamics_count || 5).forEach(function(item){ %>
-        <div class="sidebar-dynamic">
-          <div class="sidebar-dynamic-date"><%= ddate(item.date) %></div>
-          <div class="sidebar-dynamic-content"><%- md(item.content) %></div>
+        <div class="sidebar-dynamics-scroll">
+          <% dynamics.slice(0, theme.sidebar.dynamics_count || 8).forEach(function(item){ %>
+          <div class="sidebar-dynamic">
+            <div class="sidebar-dynamic-date"><%= ddate(item.date) %></div>
+            <div class="sidebar-dynamic-content"><%- md(item.content) %></div>
+          </div>
+          <% }) %>
         </div>
-        <% }) %>
         <a class="sidebar-dynamics-more" href="<%- url_for(theme.dynamics.more_link || '/dynamics/') %>">查看更多动态 →</a>
       </div>
       <% } %>
@@ -92,6 +94,6 @@
     </div>
   </footer>
 
-  <script src="<%- url_for('/js/main.js') %>"></script>
+  <script src="<%- url_for('/js/main.js') %>?v=3"></script>
 </body>
 </html>
