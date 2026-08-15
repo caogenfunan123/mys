@@ -1,0 +1,2 @@
+Snapshot: 新增动态说说模板 scaffolds/dynamic.md + 自动插入脚本 scripts/add-dynamic.js + npm run dynamic 命令
+Time: 2026-08-15T20:14:18.392434
