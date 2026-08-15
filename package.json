@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate"
+    "build": "hexo generate",
+    "dynamic": "node scripts/add-dynamic.js"
   },
   "hexo": {
     "version": ""
