@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="<%- config.language || 'zh-CN' %>" data-theme="auto">
+<%
+  var handle = '';
+  if (theme.sidebar && theme.sidebar.github) {
+    handle = theme.sidebar.github.split('/').pop();
+  }
+  var brandName = config.title + (handle ? ' / @' + handle : '');
+%>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%- page.title ? page.title + ' · ' + config.title + ' / @' + (config.author || '') : config.title + ' / @' + (config.author || '') %></title>
+  <title><%- page.title ? page.title + ' · ' + brandName : brandName %></title>
   <meta name="description" content="<%- page.description || config.description || config.title %>">
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
@@ -15,7 +22,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
-        <a class="site-name" href="<%- url_for('/') %>"><%= config.title %> / @<%= config.author || '' %></a>
+        <a class="site-name" href="<%- url_for('/') %>"><%= brandName %></a>
         <span class="site-subtitle"><%= config.subtitle || theme.sidebar.description %></span>
       </div>
       <nav class="site-nav">
@@ -45,8 +52,8 @@
         </div>
         <div class="sidebar-name"><%= config.author || config.title %></div>
         <div class="sidebar-desc"><%= config.subtitle || theme.sidebar.description %></div>
-        <% if (theme.sidebar.github) { %>
-        <a class="sidebar-github" href="<%= theme.sidebar.github %>" target="_blank" rel="noopener">GitHub - @<%= theme.sidebar.github.split('/').pop() %></a>
+        <% if (handle) { %>
+        <a class="sidebar-github" href="<%= theme.sidebar.github %>" target="_blank" rel="noopener">GitHub - @<%= handle %></a>
         <% } %>
         <% if (theme.sidebar.bio) { %>
         <div class="sidebar-bio"><%= theme.sidebar.bio %></div>
