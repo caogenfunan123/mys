@@ -1,8 +1,18 @@
 - date: 2026-08-15
-  content: 换了新的 sober 风格主题，从零复刻，喜欢这种极简留白的调调。🎉
+  content: 全面复刻了 sober 2.x 风格，左侧固定边栏 + 右侧内容区，终于像样了！🎉
 
 - date: 2026-08-14
-  content: 开始折腾 Hexo 主题开发，目标是做一个轻量、好看、支持深浅色切换的主题。
+  content: 换了新的 sober 风格主题，从零复刻，喜欢这种极简留白的调调。
 
 - date: 2026-08-12
   content: 搭建了属于自己的博客，记录技术分享与生活思考。
+
+- date: 2026-08-10
+  content: |-
+    支持 Markdown 内容，可以写**加粗**、`代码`、[链接](https://github.com)，
+    甚至列表：
+    - 第一项
+    - 第二项
+
+- date: 2026-08-08
+  content: 研究动态页实现：数据写在 `source/_data/dynamics.yml`，主题渲染成时间线。
