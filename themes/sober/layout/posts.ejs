@@ -1,0 +1,29 @@
+<h1 class="page-title">文章</h1>
+<div class="post-list">
+  <% site.posts.sort('date', -1).each(function(post){ %>
+  <article class="post-list-item">
+    <h2 class="post-list-title">
+      <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    </h2>
+    <% if (post.excerpt) { %>
+    <div class="post-list-excerpt"><%- post.excerpt %></div>
+    <% } %>
+    <div class="post-list-meta">
+      <% if (post.categories && post.categories.length) { %>
+      <span class="post-list-cats">
+        <% post.categories.each(function(cat){ %>
+        <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+        <% }) %>
+      </span>
+      <% } %>
+      <% if (post.tags && post.tags.length) { %>
+      <span class="post-list-tags">
+        <% post.tags.each(function(tag){ %>
+        <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
+        <% }) %>
+      </span>
+      <% } %>
+    </div>
+  </article>
+  <% }) %>
+</div>
