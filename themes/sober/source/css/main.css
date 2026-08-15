@@ -1,7 +1,7 @@
 /* ============================================
    sober 2.x 风格主题样式（复刻 tobylai.fun）
    左侧固定边栏（卡片式）+ 右侧内容区
-   参考主流主题（NexT/Butterfly/Fluid）侧边栏组件化做法
+   侧边栏内嵌动态 = 固定高度 + 内部滚动框
    ============================================ */
 
 :root {
@@ -193,11 +193,34 @@ a:hover { opacity: 0.75; }
   line-height: 1.6;
 }
 
-/* 侧边栏动态卡片 */
+/* 侧边栏动态卡片：固定高度 + 内部滚动 */
 .sidebar-card-title {
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 12px;
+}
+
+.sidebar-dynamics-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.sidebar-dynamics-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar-dynamics-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-dynamics-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.sidebar-dynamics-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 .sidebar-dynamic {
@@ -218,10 +241,6 @@ a:hover { opacity: 0.75; }
   font-size: 13px;
   line-height: 1.6;
   word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .sidebar-dynamic-content p { margin: 2px 0; }
