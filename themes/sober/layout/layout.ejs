@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="<%- config.language || 'zh-CN' %>" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%- page.title ? page.title + ' · ' + config.title : config.title %></title>
+  <meta name="description" content="<%- page.description || config.description || config.title %>">
+  <% if (theme.favicon) { %>
+  <link rel="icon" href="<%- url_for(theme.favicon) %>">
+  <% } %>
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>">
+  <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a class="site-name" href="<%- url_for('/') %>"><%= config.title %></a>
+        <% if (config.subtitle) { %>
+        <span class="site-subtitle"><%= config.subtitle %></span>
+        <% } %>
+      </div>
+      <nav class="site-nav">
+        <% for (var name in theme.menu) { %>
+        <a class="nav-link<%- page.path && page.path.indexOf(theme.menu[name].replace(/^\//,'')) === 0 ? ' active' : '' %>" href="<%- url_for(theme.menu[name]) %>"><%= name %></a>
+        <% } %>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换深浅色">◐</button>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <%- body %>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <%= new Date().getFullYear() %> <%= config.author || config.title %>. 保留所有权利。</p>
+      <% if (theme.copyright) { %>
+      <p><%= theme.copyright %></p>
+      <% } %>
+    </div>
+  </footer>
+
+  <script src="<%- url_for('/js/main.js') %>"></script>
+</body>
+</html>
