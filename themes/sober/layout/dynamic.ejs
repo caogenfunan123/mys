@@ -4,7 +4,7 @@
   <% if (site.data.dynamics && site.data.dynamics.length) { %>
     <% site.data.dynamics.forEach(function(item){ %>
     <div class="dynamic-item">
-      <div class="dynamic-date"><%= item.date %></div>
+      <div class="dynamic-date"><%= ddate(item.date) %></div>
       <div class="dynamic-content"><%- md(item.content) %></div>
     </div>
     <% }) %>
