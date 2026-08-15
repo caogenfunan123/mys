@@ -16,7 +16,7 @@
   <div class="dynamics home-dynamics">
     <% site.data.dynamics.slice(0, theme.dynamics.count || 5).forEach(function(item){ %>
     <div class="dynamic-item">
-      <div class="dynamic-date"><%= item.date %></div>
+      <div class="dynamic-date"><%= ddate(item.date) %></div>
       <div class="dynamic-content"><%- md(item.content) %></div>
     </div>
     <% }) %>
