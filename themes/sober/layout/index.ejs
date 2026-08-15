@@ -9,20 +9,3 @@
   </div>
 </section>
 <% } %>
-
-<% if (site.data.dynamics && site.data.dynamics.length) { %>
-<section class="home-section">
-  <h2 class="section-title"><%= theme.dynamics.title || '动态' %></h2>
-  <div class="dynamics home-dynamics">
-    <% site.data.dynamics.slice(0, theme.dynamics.count || 5).forEach(function(item){ %>
-    <div class="dynamic-item">
-      <div class="dynamic-date"><%= ddate(item.date) %></div>
-      <div class="dynamic-content"><%- md(item.content) %></div>
-    </div>
-    <% }) %>
-  </div>
-  <% if (theme.dynamics.more_link) { %>
-  <a class="dynamics-more" href="<%- url_for(theme.dynamics.more_link) %>"><%= theme.dynamics.more_text || '查看更多动态' %></a>
-  <% } %>
-</section>
-<% } %>
