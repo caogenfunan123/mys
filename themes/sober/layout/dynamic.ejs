@@ -1,10 +1,11 @@
-<h1 class="page-title"><%= page.title || theme.dynamics_title || '动态' %></h1>
+<h1 class="page-title"><%= page.title || theme.dynamics.title || '动态' %></h1>
+<p class="dynamics-subtitle">最近的动态……更多是一些吐槽动态</p>
 <div class="dynamics">
   <% if (site.data.dynamics && site.data.dynamics.length) { %>
     <% site.data.dynamics.forEach(function(item){ %>
     <div class="dynamic-item">
       <div class="dynamic-date"><%= item.date %></div>
-      <div class="dynamic-content"><%= item.content %></div>
+      <div class="dynamic-content"><%- md(item.content) %></div>
     </div>
     <% }) %>
   <% } else { %>
