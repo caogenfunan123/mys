@@ -4,6 +4,9 @@
   <div class="archive-item">
     <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
     <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    <span class="archive-meta">
+      <% if (post.tags && post.tags.length) { %>#<%= post.tags.map(function(t){ return t.name; }).join(' #') %><% } %>
+    </span>
   </div>
   <% }) %>
 </div>
