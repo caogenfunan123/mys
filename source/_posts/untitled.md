@@ -1,7 +1,8 @@
 ---
 title: 未命名
-date: 2026-08-15 20:20:42 +0800
-type: dynamic
+date: 2026-08-15 20:33:14 +0800
+tags: []
+categories: []
 ---
 
-好6啊  ai
+你干嘛？![image](https://cdn.jsdelivr.net/gh/caogenfunan123/xiamend@main/images/img_1786797917490.png)
