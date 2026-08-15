@@ -6,8 +6,8 @@
     handle = theme.sidebar.github.split('/').pop();
   }
   var brandName = config.title + (handle ? ' / @' + handle : '');
-  var dynamics = site.data.dynamics || [];
   var isHome = page.__index === true;
+  var dynItems = all_dynamics();
 %>
 <head>
   <meta charset="UTF-8">
@@ -17,7 +17,7 @@
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=6">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=7">
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
@@ -76,14 +76,19 @@
       </div>
 
       <!-- 最新动态卡片（内嵌可滚动框，只在首页显示） -->
-      <% if (isHome && dynamics.length) { %>
+      <% if (isHome && dynItems.length) { %>
       <div class="sidebar-card sidebar-dynamics-card">
         <div class="sidebar-card-title">⚡ 最新动态</div>
         <div class="sidebar-dynamics-scroll">
-          <% dynamics.slice(0, theme.sidebar.dynamics_count || 8).forEach(function(item){ %>
+          <% dynItems.slice(0, theme.sidebar.dynamics_count || 8).forEach(function(item){ %>
           <div class="sidebar-dynamic">
             <div class="sidebar-dynamic-date"><%= ddate(item.date) %></div>
+            <% if (item.title) { %><div class="sidebar-dynamic-title"><%= item.title %></div><% } %>
+            <% if (item.raw) { %>
             <div class="sidebar-dynamic-content"><%- md(item.content) %></div>
+            <% } else { %>
+            <div class="sidebar-dynamic-content"><%= item.content %></div>
+            <% } %>
           </div>
           <% }) %>
         </div>
@@ -107,6 +112,6 @@
     </div>
   </footer>
 
-  <script src="<%- url_for('/js/main.js') %>?v=6"></script>
+  <script src="<%- url_for('/js/main.js') %>?v=7"></script>
 </body>
 </html>
