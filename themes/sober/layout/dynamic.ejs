@@ -1,14 +1,19 @@
 <h1 class="page-title"><%= page.title || theme.dynamics.title || '动态' %></h1>
 <p class="dynamics-subtitle">最近的动态……更多是一些吐槽动态</p>
+<% var dynItems = all_dynamics(); %>
 <div class="dynamics">
-  <% if (site.data.dynamics && site.data.dynamics.length) { %>
-    <% site.data.dynamics.forEach(function(item){ %>
-    <div class="dynamic-item">
-      <div class="dynamic-date"><%= ddate(item.date) %></div>
-      <div class="dynamic-content"><%- md(item.content) %></div>
-    </div>
-    <% }) %>
-  <% } else { %>
-    <p class="dynamics-empty">还没有动态，去 <code>source/_data/dynamics.yml</code> 添加第一条吧。</p>
+  <% if (dynItems.length) { dynItems.forEach(function(item){ %>
+  <div class="dynamic-item">
+    <div class="dynamic-date"><%= ddate(item.date) %></div>
+    <% if (item.title) { %><div class="dynamic-title"><%= item.title %></div><% } %>
+    <% if (item.raw) { %>
+    <div class="dynamic-content"><%- md(item.content) %></div>
+    <% } else { %>
+    <div class="dynamic-content"><%= item.content %></div>
+    <% } %>
+    <% if (item.link) { %><a class="dynamic-post-link" href="<%= item.link %>">查看全文 →</a><% } %>
+  </div>
+  <% }) } else { %>
+  <p class="dynamics-empty">还没有动态，去 <code>source/_data/dynamics.yml</code> 添加第一条吧。</p>
   <% } %>
 </div>
