@@ -34,6 +34,7 @@
   <div class="container layout">
     <% if (theme.sidebar && theme.sidebar.enable) { %>
     <aside class="sidebar">
+      <!-- 个人卡片 -->
       <div class="sidebar-card">
         <div class="sidebar-avatar">
           <% if (theme.sidebar.avatar) { %>
@@ -56,6 +57,27 @@
           <% } %>
         </div>
         <% } %>
+      </div>
+
+      <!-- 动态滚动框：固定高度，内部滚动，页面不滚 -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title"><%= theme.dynamics_title || '动态' %></div>
+        <div class="sidebar-dynamics">
+          <% if (site.data.dynamics && site.data.dynamics.length) { %>
+            <% var dcount = theme.sidebar.dynamics_count || 6; %>
+            <% site.data.dynamics.slice(0, dcount).forEach(function(item){ %>
+            <div class="sd-item">
+              <div class="sd-date"><%= item.date %></div>
+              <div class="sd-content"><%= item.content %></div>
+            </div>
+            <% }) %>
+          <% } else { %>
+            <p class="sd-empty">还没有动态，去 <code>source/_data/dynamics.yml</code> 添加。</p>
+          <% } %>
+        </div>
+        <div class="sd-more">
+          <a href="<%- url_for('/dynamics/') %>"><%= theme.sidebar.dynamics_more || '查看更多动态 →' %></a>
+        </div>
       </div>
     </aside>
     <% } %>
