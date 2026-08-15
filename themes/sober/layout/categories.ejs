@@ -1,0 +1,6 @@
+<h1 class="page-title">分类</h1>
+<div class="category-list">
+  <% site.categories.each(function(category){ %>
+  <a class="category-item" href="<%- url_for(category.path) %>"><%= category.name %><span class="category-count"><%= category.length %></span></a>
+  <% }) %>
+</div>
