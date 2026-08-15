@@ -19,7 +19,18 @@ hexo.extend.helper.register('ddate', function (d) {
   return dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate());
 });
 
-// 收集全部动态：dynamics.yml 数据 + type:dynamic 的说说文章，按日期倒序合并
+// 转时间戳（用于精确排序：yml 只有日期按 00:00，文章带具体时间）
+hexo.extend.helper.register('dtime', function (d) {
+  if (!d) return 0;
+  if (typeof d === 'string') {
+    var t = new Date(d + 'T00:00:00');
+    return isNaN(t.getTime()) ? 0 : t.getTime();
+  }
+  var dt = new Date(d);
+  return isNaN(dt.getTime()) ? 0 : dt.getTime();
+});
+
+// 收集全部动态：dynamics.yml 数据 + type:dynamic 的说说文章，按时间戳倒序合并
 hexo.extend.helper.register('all_dynamics', function () {
   var self = this;
   var items = [];
@@ -43,11 +54,9 @@ hexo.extend.helper.register('all_dynamics', function () {
     }
   });
 
-  // 按日期倒序（新的在前）
+  // 按完整时间戳倒序（新的在前；同日期时带具体时间的文章排前面）
   items.sort(function (a, b) {
-    var da = typeof a.date === 'string' ? a.date : self.date(a.date, 'YYYY-MM-DD');
-    var db = typeof b.date === 'string' ? b.date : self.date(b.date, 'YYYY-MM-DD');
-    return da < db ? 1 : da > db ? -1 : 0;
+    return self.dtime(b.date) - self.dtime(a.date);
   });
 
   return items;
