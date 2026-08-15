@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%- page.title ? page.title + ' · ' + config.title : config.title %></title>
+  <title><%- page.title ? page.title + ' · ' + config.title + ' / @' + (config.author || '') : config.title + ' / @' + (config.author || '') %></title>
   <meta name="description" content="<%- page.description || config.description || config.title %>">
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
@@ -15,7 +15,8 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
-        <a class="site-name" href="<%- url_for('/') %>"><%= config.title %></a>
+        <a class="site-name" href="<%- url_for('/') %>"><%= config.title %> / @<%= config.author || '' %></a>
+        <span class="site-subtitle"><%= config.subtitle || theme.sidebar.description %></span>
       </div>
       <nav class="site-nav">
         <% for (var name in theme.menu) {
@@ -34,50 +35,22 @@
   <div class="container layout">
     <% if (theme.sidebar && theme.sidebar.enable) { %>
     <aside class="sidebar">
-      <!-- 个人卡片 -->
-      <div class="sidebar-card">
+      <div class="sidebar-inner">
         <div class="sidebar-avatar">
           <% if (theme.sidebar.avatar) { %>
-          <img src="<%- url_for(theme.sidebar.avatar) %>" alt="<%= config.title %>">
+          <img src="<%- url_for(theme.sidebar.avatar) %>" alt="avatar">
           <% } else { %>
-          <span><%= (config.title || '?').trim().charAt(0) %></span>
+          <span class="avatar-fallback"><%= (config.author || config.title).charAt(0) %></span>
           <% } %>
         </div>
-        <div class="sidebar-name"><%= config.title %></div>
-        <% if (theme.sidebar.slogan) { %>
-        <div class="sidebar-slogan"><%= theme.sidebar.slogan %></div>
+        <div class="sidebar-name"><%= config.author || config.title %></div>
+        <div class="sidebar-desc"><%= config.subtitle || theme.sidebar.description %></div>
+        <% if (theme.sidebar.github) { %>
+        <a class="sidebar-github" href="<%= theme.sidebar.github %>" target="_blank" rel="noopener">GitHub - @<%= theme.sidebar.github.split('/').pop() %></a>
         <% } %>
         <% if (theme.sidebar.bio) { %>
         <div class="sidebar-bio"><%= theme.sidebar.bio %></div>
         <% } %>
-        <% if (theme.sidebar.social) { %>
-        <div class="sidebar-social">
-          <% for (var sname in theme.sidebar.social) { %>
-          <a class="social-link" href="<%- theme.sidebar.social[sname] %>" target="_blank" rel="noopener"><%= sname %></a>
-          <% } %>
-        </div>
-        <% } %>
-      </div>
-
-      <!-- 动态滚动框：固定高度，内部滚动，页面不滚 -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-title"><%= theme.dynamics_title || '动态' %></div>
-        <div class="sidebar-dynamics">
-          <% if (site.data.dynamics && site.data.dynamics.length) { %>
-            <% var dcount = theme.sidebar.dynamics_count || 6; %>
-            <% site.data.dynamics.slice(0, dcount).forEach(function(item){ %>
-            <div class="sd-item">
-              <div class="sd-date"><%= item.date %></div>
-              <div class="sd-content"><%= item.content %></div>
-            </div>
-            <% }) %>
-          <% } else { %>
-            <p class="sd-empty">还没有动态，去 <code>source/_data/dynamics.yml</code> 添加。</p>
-          <% } %>
-        </div>
-        <div class="sd-more">
-          <a href="<%- url_for('/dynamics/') %>"><%= theme.sidebar.dynamics_more || '查看更多动态 →' %></a>
-        </div>
       </div>
     </aside>
     <% } %>
@@ -90,8 +63,8 @@
   <footer class="site-footer">
     <div class="container">
       <p>© <%= new Date().getFullYear() %> <%= config.author || config.title %>. 保留所有权利。</p>
-      <% if (theme.copyright) { %>
-      <p><%= theme.copyright %></p>
+      <% if (theme.footer && theme.footer.copyright) { %>
+      <p><%= theme.footer.copyright %></p>
       <% } %>
     </div>
   </footer>
