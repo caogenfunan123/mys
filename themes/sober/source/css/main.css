@@ -1,7 +1,7 @@
 /* ============================================
    sober 2.x 风格主题样式（复刻 tobylai.fun）
    左侧固定边栏（卡片式）+ 右侧内容区
-   侧边栏内嵌动态 = 固定高度 + 内部滚动框
+   所有设备强制显示左侧边栏（手机为窄版）
    ============================================ */
 
 :root {
@@ -66,7 +66,7 @@ a:hover { opacity: 0.75; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   height: 64px;
   flex-wrap: wrap;
 }
@@ -117,7 +117,7 @@ a:hover { opacity: 0.75; }
 }
 .theme-toggle:hover { transform: rotate(20deg); }
 
-/* ============ 两栏布局 ============ */
+/* ============ 两栏布局：始终左右并排 ============ */
 .layout {
   display: flex;
   gap: 32px;
@@ -181,6 +181,7 @@ a:hover { opacity: 0.75; }
 .sidebar-github {
   font-size: 13px;
   color: var(--muted);
+  word-break: break-all;
 }
 .sidebar-github:hover { color: var(--accent); opacity: 1; }
 
@@ -209,19 +210,10 @@ a:hover { opacity: 0.75; }
   scrollbar-color: var(--border) transparent;
 }
 
-.sidebar-dynamics-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-.sidebar-dynamics-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.sidebar-dynamics-scroll::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-.sidebar-dynamics-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
-}
+.sidebar-dynamics-scroll::-webkit-scrollbar { width: 5px; }
+.sidebar-dynamics-scroll::-webkit-scrollbar-track { background: transparent; }
+.sidebar-dynamics-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.sidebar-dynamics-scroll::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
 .sidebar-dynamic {
   padding: 10px 0;
@@ -585,21 +577,50 @@ a:hover { opacity: 0.75; }
 }
 .site-footer p { margin: 4px 0; }
 
-/* ============ 响应式 ============ */
-/* 侧边栏固定左侧：只在窄于 640px（手机）时才折叠到顶部 */
+/* ============ 响应式：所有设备都保留左侧边栏 ============ */
+/* 平板/小屏：侧边栏收窄 */
+@media (max-width: 900px) {
+  .container { padding: 0 16px; }
+  .layout { gap: 16px; }
+  .sidebar { width: 170px; }
+  .sidebar-card { padding: 14px; }
+  .sidebar-avatar { width: 48px; height: 48px; }
+  .sidebar-bio { display: none; }
+  .sidebar-dynamics-scroll { max-height: 240px; }
+}
+
+/* 手机：窄版侧边栏，依然在左侧 */
 @media (max-width: 640px) {
-  .layout { flex-direction: column; gap: 24px; }
+  .header-inner { height: auto; padding: 12px 0; gap: 8px; }
+  .site-nav { order: 3; width: 100%; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+  .nav-link { font-size: 13px; padding: 4px 8px; white-space: nowrap; }
+  .site-name { font-size: 16px; }
+  .site-subtitle { display: none; }
+
+  .layout { flex-direction: row; gap: 10px; align-items: flex-start; }
   .sidebar {
-    width: 100%;
-    position: static;
-    padding: 20px 0 0;
-    flex-direction: column;
+    width: 96px;
+    position: sticky;
+    top: 84px;
+    padding: 16px 0;
+    gap: 10px;
   }
-  .sidebar-card { min-width: 0; }
-  .site-main { padding-top: 8px; }
-  .header-inner { height: auto; padding: 14px 0; }
-  .site-nav { order: 3; width: 100%; justify-content: flex-start; }
-  .post-header .post-title { font-size: 24px; }
+  .sidebar-card { padding: 10px; }
+  .sidebar-avatar { width: 40px; height: 40px; margin-bottom: 8px; }
+  .avatar-fallback { font-size: 20px; }
+  .sidebar-name { font-size: 14px; }
+  .sidebar-desc { font-size: 11px; }
+  .sidebar-github { font-size: 10px; }
+  .sidebar-card-title { font-size: 13px; margin-bottom: 8px; }
+  .sidebar-dynamics-scroll { max-height: 200px; }
+  .sidebar-dynamic { padding: 6px 0; }
+  .sidebar-dynamic-date { font-size: 10px; }
+  .sidebar-dynamic-content { font-size: 11px; }
+  .sidebar-dynamics-more { font-size: 11px; }
+
+  .site-main { padding: 16px 0 40px; font-size: 15px; }
+  .section-title { font-size: 18px; }
+  .post-header .post-title { font-size: 22px; }
   .archive-item { flex-wrap: wrap; }
   .archive-meta { margin-left: 0; text-align: left; width: 100%; }
   .friends-list { grid-template-columns: 1fr; }
