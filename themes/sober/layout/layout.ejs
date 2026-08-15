@@ -6,6 +6,7 @@
     handle = theme.sidebar.github.split('/').pop();
   }
   var brandName = config.title + (handle ? ' / @' + handle : '');
+  var dynamics = site.data.dynamics || [];
 %>
 <head>
   <meta charset="UTF-8">
@@ -42,7 +43,8 @@
   <div class="container layout">
     <% if (theme.sidebar && theme.sidebar.enable) { %>
     <aside class="sidebar">
-      <div class="sidebar-inner">
+      <!-- 头像/资料卡片 -->
+      <div class="sidebar-card">
         <div class="sidebar-avatar">
           <% if (theme.sidebar.avatar) { %>
           <img src="<%- url_for(theme.sidebar.avatar) %>" alt="avatar">
@@ -59,6 +61,20 @@
         <div class="sidebar-bio"><%= theme.sidebar.bio %></div>
         <% } %>
       </div>
+
+      <!-- 最新动态卡片（内嵌动态） -->
+      <% if (dynamics.length) { %>
+      <div class="sidebar-card sidebar-dynamics-card">
+        <div class="sidebar-card-title">⚡ 最新动态</div>
+        <% dynamics.slice(0, theme.sidebar.dynamics_count || 5).forEach(function(item){ %>
+        <div class="sidebar-dynamic">
+          <div class="sidebar-dynamic-date"><%= ddate(item.date) %></div>
+          <div class="sidebar-dynamic-content"><%- md(item.content) %></div>
+        </div>
+        <% }) %>
+        <a class="sidebar-dynamics-more" href="<%- url_for(theme.dynamics.more_link || '/dynamics/') %>">查看更多动态 →</a>
+      </div>
+      <% } %>
     </aside>
     <% } %>
 
