@@ -1,11 +1,36 @@
-<% if (theme.profile) { %>
-<section class="home-section">
-  <h2 class="section-title"><%= theme.profile.title || '关于' %></h2>
-  <div class="profile-content">
-    <p><%= theme.profile.content %></p>
-    <% if (theme.profile.more_text) { %>
-    <p class="profile-more"><%= theme.profile.more_text %></p>
+<h1 class="page-title">最新文章</h1>
+<div class="post-list">
+  <% page.posts.each(function(post){ %>
+  <article class="post-list-item">
+    <h2 class="post-list-title">
+      <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    </h2>
+    <div class="post-list-meta">
+      <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+      <% if (post.categories && post.categories.length) { %>
+      <span class="post-list-cats">
+        <% post.categories.each(function(cat){ %>
+        <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+        <% }) %>
+      </span>
+      <% } %>
+      <% if (post.tags && post.tags.length) { %>
+      <span class="post-list-tags">
+        <% post.tags.each(function(tag){ %>
+        <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
+        <% }) %>
+      </span>
+      <% } %>
+    </div>
+    <% if (post.excerpt) { %>
+    <div class="post-list-excerpt"><%- post.excerpt %></div>
     <% } %>
-  </div>
-</section>
+  </article>
+  <% }) %>
+</div>
+
+<% if (page.total > 1) { %>
+<nav class="pagination">
+  <%- paginator({ prev_text: '← 上一页', next_text: '下一页 →' }) %>
+</nav>
 <% } %>
