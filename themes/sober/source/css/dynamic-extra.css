@@ -1,0 +1,20 @@
+/* 动态时间线（完整页）补充样式 */
+.dynamic-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.dynamic-post-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+/* 侧边栏动态标题 */
+.sidebar-dynamic-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
