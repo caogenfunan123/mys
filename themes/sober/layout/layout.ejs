@@ -21,8 +21,13 @@
         <% } %>
       </div>
       <nav class="site-nav">
-        <% for (var name in theme.menu) { %>
-        <a class="nav-link<%- page.path && page.path.indexOf(theme.menu[name].replace(/^\//,'')) === 0 ? ' active' : '' %>" href="<%- url_for(theme.menu[name]) %>"><%= name %></a>
+        <% for (var name in theme.menu) {
+          var p = theme.menu[name].replace(/^\//, '');
+          var isActive = p === ''
+            ? (page.path === '' || page.path === 'index.html')
+            : (page.path && page.path.indexOf(p) === 0);
+        %>
+        <a class="nav-link<%- isActive ? ' active' : '' %>" href="<%- url_for(theme.menu[name]) %>"><%= name %></a>
         <% } %>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换深浅色">◐</button>
