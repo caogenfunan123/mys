@@ -1,26 +1,48 @@
-<% page.posts.each(function(post){ %>
-<article class="post-card">
-  <h2 class="post-title">
-    <a href="<%- url_for(post.path) %>"><%= post.title %></a>
-  </h2>
-  <div class="post-meta">
-    <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
-    <% if (post.tags && post.tags.length) { %>
-    <span class="post-tags">
-      <% post.tags.each(function(tag){ %>
-      <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
+<% if (theme.home && theme.home.show_dynamics) { %>
+  <h1 class="page-title"><%= theme.dynamics_title || '动态' %></h1>
+  <div class="dynamics">
+    <% if (site.data.dynamics && site.data.dynamics.length) { %>
+      <% var count = theme.home.dynamics_count || 5; %>
+      <% site.data.dynamics.slice(0, count).forEach(function(item){ %>
+      <div class="dynamic-item">
+        <div class="dynamic-date"><%= item.date %></div>
+        <div class="dynamic-content"><%= item.content %></div>
+      </div>
       <% }) %>
-    </span>
+    <% } else { %>
+      <p class="dynamics-empty">还没有动态，去 <code>source/_data/dynamics.yml</code> 添加第一条吧。</p>
     <% } %>
   </div>
-  <% if (post.excerpt) { %>
-  <div class="post-excerpt"><%- post.excerpt %></div>
+  <% if (site.data.dynamics && site.data.dynamics.length > (theme.home.dynamics_count || 5)) { %>
+  <div class="dynamics-more">
+    <a href="<%- url_for('/dynamics/') %>"><%= theme.home.dynamics_more || '查看更多动态' %></a>
+  </div>
   <% } %>
-</article>
-<% }) %>
+<% } else { %>
+  <% page.posts.each(function(post){ %>
+  <article class="post-card">
+    <h2 class="post-title">
+      <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    </h2>
+    <div class="post-meta">
+      <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+      <% if (post.tags && post.tags.length) { %>
+      <span class="post-tags">
+        <% post.tags.each(function(tag){ %>
+        <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
+        <% }) %>
+      </span>
+      <% } %>
+    </div>
+    <% if (post.excerpt) { %>
+    <div class="post-excerpt"><%- post.excerpt %></div>
+    <% } %>
+  </article>
+  <% }) %>
 
-<% if (page.total > 1) { %>
-<nav class="pagination">
-  <%- paginator({ prev_text: '← 上一页', next_text: '下一页 →' }) %>
-</nav>
+  <% if (page.total > 1) { %>
+  <nav class="pagination">
+    <%- paginator({ prev_text: '← 上一页', next_text: '下一页 →' }) %>
+  </nav>
+  <% } %>
 <% } %>
