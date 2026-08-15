@@ -1,0 +1,14 @@
+<h1 class="page-title">归档</h1>
+<div class="archive-list">
+  <% page.posts.each(function(post){ %>
+  <div class="archive-item">
+    <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+    <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+  </div>
+  <% }) %>
+</div>
+<% if (page.total > 1) { %>
+<nav class="pagination">
+  <%- paginator({ prev_text: '← 上一页', next_text: '下一页 →' }) %>
+</nav>
+<% } %>
