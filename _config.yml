@@ -1,0 +1,24 @@
+# Hexo 站点配置（一键建站生成）
+title: 小子博客
+subtitle: ''
+description: ''
+language: zh-CN
+timezone: ''
+
+# URL（root 必须匹配部署路径，否则子目录部署时导航/资源链接全部 404）
+url: "https://caogenfunan123.github.io/mys/"
+root: /mys/
+
+# 写作
+new_post_name: :title.md
+default_layout: post
+auto_spacing: true
+titlecase: false
+
+# 目录
+source_dir: source
+public_dir: public
+
+# 部署
+deploy:
+  type: ''
