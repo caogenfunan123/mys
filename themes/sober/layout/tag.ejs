@@ -4,6 +4,9 @@
   <div class="archive-item">
     <time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
     <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    <span class="archive-meta">
+      <% if (post.categories && post.categories.length) { %><%= post.categories.map(function(c){ return c.name; }).join(' ') %><% } %>
+    </span>
   </div>
   <% }) %>
 </div>
