@@ -16,9 +16,6 @@
     <div class="container header-inner">
       <div class="brand">
         <a class="site-name" href="<%- url_for('/') %>"><%= config.title %></a>
-        <% if (config.subtitle) { %>
-        <span class="site-subtitle"><%= config.subtitle %></span>
-        <% } %>
       </div>
       <nav class="site-nav">
         <% for (var name in theme.menu) {
@@ -34,11 +31,39 @@
     </div>
   </header>
 
-  <main class="site-main">
-    <div class="container">
+  <div class="container layout">
+    <% if (theme.sidebar && theme.sidebar.enable) { %>
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-avatar">
+          <% if (theme.sidebar.avatar) { %>
+          <img src="<%- url_for(theme.sidebar.avatar) %>" alt="<%= config.title %>">
+          <% } else { %>
+          <span><%= (config.title || '?').trim().charAt(0) %></span>
+          <% } %>
+        </div>
+        <div class="sidebar-name"><%= config.title %></div>
+        <% if (theme.sidebar.slogan) { %>
+        <div class="sidebar-slogan"><%= theme.sidebar.slogan %></div>
+        <% } %>
+        <% if (theme.sidebar.bio) { %>
+        <div class="sidebar-bio"><%= theme.sidebar.bio %></div>
+        <% } %>
+        <% if (theme.sidebar.social) { %>
+        <div class="sidebar-social">
+          <% for (var sname in theme.sidebar.social) { %>
+          <a class="social-link" href="<%- theme.sidebar.social[sname] %>" target="_blank" rel="noopener"><%= sname %></a>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+    </aside>
+    <% } %>
+
+    <main class="site-main">
       <%- body %>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <footer class="site-footer">
     <div class="container">
