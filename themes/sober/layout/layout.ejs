@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="<%- config.language || 'zh-CN' %>" data-theme="auto" data-color="blue">
 <%
+  // ===== 防御性取值：任何一项缺失都不让渲染中断 =====
+  var sb = theme.sidebar || {};
+  var menu = theme.menu || {};
+  var dyn = theme.dynamics || {};
+  var ft = theme.footer || {};
   var handle = '';
-  if (theme.sidebar && theme.sidebar.github) {
-    handle = theme.sidebar.github.split('/').pop();
+  if (sb.github) {
+    var gs = String(sb.github).split('/');
+    handle = gs[gs.length - 1] || '';
   }
-  var brandName = config.title + (handle ? ' / @' + handle : '');
+  var brandName = (config.title || '') + (handle ? ' / @' + handle : '');
   var isHome = page.__index === true;
-  var dynItems = all_dynamics();
-  // 菜单小图标映射（无图标库，用 emoji 零依赖）
+  var dynItems = [];
+  if (typeof all_dynamics === 'function') {
+    try { dynItems = all_dynamics() || []; } catch (e) { dynItems = []; }
+  }
+  // 菜单小图标映射
   var menuIcons = {
-    '首页': '🏠',
-    '文章': '📝',
-    '标签': '🏷️',
-    '分类': '📂',
-    '归档': '🗂️',
-    '友链': '🤝',
-    '关于': '👤',
-    '动态': '⚡'
+    '首页': '🏠', '文章': '📝', '标签': '🏷️', '分类': '📂',
+    '归档': '🗂️', '友链': '🤝', '关于': '👤', '动态': '⚡'
   };
 %>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%- page.title ? page.title + ' · ' + brandName : brandName %></title>
-  <meta name="description" content="<%- page.description || config.description || config.title %>">
+  <title><%- (page.title ? page.title + ' · ' : '') + brandName %></title>
+  <meta name="description" content="<%- page.description || config.description || config.title || '' %>">
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') ?>?v=13">
-  <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') ?>?v=3">
-  <link rel="stylesheet" href="<%- url_for('/css/color-search.css') ?>?v=4">
-  <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=14">
+  <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') %>?v=3">
+  <link rel="stylesheet" href="<%- url_for('/css/color-search.css') %>?v=5">
+  <link rel="alternate" type="application/rss+xml" title="<%= config.title || '' %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
         <a class="site-name" href="<%- url_for('/') %>"><%= brandName %></a>
-        <span class="site-subtitle"><%= config.subtitle || theme.sidebar.description %></span>
+        <span class="site-subtitle"><%= config.subtitle || sb.description || '' %></span>
       </div>
       <div class="header-actions">
         <button class="search-toggle" id="searchToggle" aria-label="搜索" title="搜索">🔍</button>
@@ -80,14 +83,14 @@
   <nav class="menu-panel" id="menuPanel">
     <div class="container">
       <ul class="menu-list">
-        <% for (var name in theme.menu) {
-          var p = theme.menu[name].replace(/^\//, '');
+        <% for (var name in menu) {
+          var p = String(menu[name] || '').replace(/^\//, '');
           var isActive = p === ''
             ? (page.path === '' || page.path === 'index.html')
             : (page.path && page.path.indexOf(p) === 0);
         %>
         <li class="menu-item<%- isActive ? ' active' : '' %>">
-          <a href="<%- url_for(theme.menu[name]) %>">
+          <a href="<%- url_for(menu[name]) %>">
             <span class="menu-icon"><%= menuIcons[name] || '•' %></span><%= name %>
           </a>
         </li>
@@ -98,24 +101,24 @@
   <div class="menu-overlay" id="menuOverlay"></div>
 
   <div class="container layout">
-    <% if (theme.sidebar && theme.sidebar.enable) { %>
+    <% if (sb.enable) { %>
     <aside class="sidebar">
       <!-- 资料卡片（所有页面显示） -->
       <div class="sidebar-card">
         <div class="sidebar-avatar">
-          <% if (theme.sidebar.avatar) { %>
-          <img src="<%- url_for(theme.sidebar.avatar) %>" alt="avatar">
+          <% if (sb.avatar) { %>
+          <img src="<%- url_for(sb.avatar) %>" alt="avatar">
           <% } else { %>
-          <span class="avatar-fallback"><%= (config.author || config.title).charAt(0) %></span>
+          <span class="avatar-fallback"><%= (config.author || config.title || '?').charAt(0) %></span>
           <% } %>
         </div>
-        <div class="sidebar-name"><%= config.author || config.title %></div>
-        <div class="sidebar-desc"><%= config.subtitle || theme.sidebar.description %></div>
+        <div class="sidebar-name"><%= config.author || config.title || '' %></div>
+        <div class="sidebar-desc"><%= config.subtitle || sb.description || '' %></div>
         <% if (handle) { %>
-        <a class="sidebar-github" href="<%= theme.sidebar.github %>" target="_blank" rel="noopener">🐙 GitHub - @<%= handle %></a>
+        <a class="sidebar-github" href="<%- sb.github %>" target="_blank" rel="noopener">🐙 GitHub - @<%= handle %></a>
         <% } %>
-        <% if (theme.sidebar.bio) { %>
-        <div class="sidebar-bio"><%= theme.sidebar.bio %></div>
+        <% if (sb.bio) { %>
+        <div class="sidebar-bio"><%= sb.bio %></div>
         <% } %>
       </div>
 
@@ -124,7 +127,7 @@
       <div class="sidebar-card sidebar-dynamics-card">
         <div class="sidebar-card-title">⚡ 最新动态</div>
         <div class="sidebar-dynamics-scroll">
-          <% dynItems.slice(0, theme.sidebar.dynamics_count || 8).forEach(function(item){ %>
+          <% dynItems.slice(0, sb.dynamics_count || 8).forEach(function(item){ %>
           <div class="sidebar-dynamic">
             <div class="sidebar-dynamic-date">🗓 <%= ddate(item.date) %></div>
             <% if (item.title && item.title !== '未命名') { %><div class="sidebar-dynamic-title">💬 <%= item.title %></div><% } %>
@@ -136,7 +139,7 @@
           </div>
           <% }) %>
         </div>
-        <a class="sidebar-dynamics-more" href="<%- url_for(theme.dynamics.more_link || '/dynamics/') %>">查看更多动态 →</a>
+        <a class="sidebar-dynamics-more" href="<%- url_for(dyn.more_link || '/dynamics/') %>">查看更多动态 →</a>
       </div>
       <% } %>
     </aside>
@@ -149,14 +152,14 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <%= new Date().getFullYear() %> <%= config.author || config.title %>. 保留所有权利。</p>
-      <% if (theme.footer && theme.footer.copyright) { %>
-      <p><%= theme.footer.copyright %></p>
+      <p>© <%= new Date().getFullYear() %> <%= config.author || config.title || '' %>. 保留所有权利。</p>
+      <% if (ft.copyright) { %>
+      <p><%= ft.copyright %></p>
       <% } %>
     </div>
   </footer>
 
-  <script src="<%- url_for('/js/main.js') ?>?v=9"></script>
-  <script src="<%- url_for('/js/search.js') ?>?v=3"></script>
+  <script src="<%- url_for('/js/main.js') %>?v=9"></script>
+  <script src="<%- url_for('/js/search.js') %>?v=4"></script>
 </body>
 </html>
