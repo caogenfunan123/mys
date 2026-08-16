@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%- config.language || 'zh-CN' %>" data-theme="auto">
+<html lang="<%- config.language || 'zh-CN' %>" data-theme="auto" data-color="blue">
 <%
   var handle = '';
   if (theme.sidebar && theme.sidebar.github) {
@@ -28,8 +28,9 @@
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=9">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=10">
   <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') %>?v=3">
+  <link rel="stylesheet" href="<%- url_for('/css/color-search.css') %>?v=1">
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
@@ -40,11 +41,41 @@
         <span class="site-subtitle"><%= config.subtitle || theme.sidebar.description %></span>
       </div>
       <div class="header-actions">
+        <button class="search-toggle" id="searchToggle" aria-label="搜索" title="搜索">🔍</button>
+        <button class="color-toggle" id="colorToggle" aria-label="切换配色" title="切换配色">🎨</button>
         <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换深浅色">◐</button>
         <button class="menu-toggle" id="menuToggle" aria-label="菜单" title="菜单">☰</button>
       </div>
     </div>
   </header>
+
+  <!-- 配色选择面板 -->
+  <div class="color-overlay" id="colorOverlay"></div>
+  <div class="color-pop" id="colorPop">
+    <div class="color-pop-title">🎨 选择配色</div>
+    <div class="color-options" id="colorOptions">
+      <button class="color-option active" data-color="blue" style="background: linear-gradient(135deg,#3b82f6,#0ea5e9)" title="清爽蓝"></button>
+      <button class="color-option" data-color="teal" style="background: linear-gradient(135deg,#0d9488,#14b8a6)" title="青绿"></button>
+      <button class="color-option" data-color="green" style="background: linear-gradient(135deg,#16a34a,#22c55e)" title="极客绿"></button>
+      <button class="color-option" data-color="orange" style="background: linear-gradient(135deg,#ea580c,#f59e0b)" title="暖橙"></button>
+      <button class="color-option" data-color="violet" style="background: linear-gradient(135deg,#7c3aed,#a78bfa)" title="紫罗兰"></button>
+      <button class="color-option" data-color="rose" style="background: linear-gradient(135deg,#e11d48,#fb7185)" title="玫红"></button>
+    </div>
+  </div>
+
+  <!-- 搜索面板 -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-panel">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" id="searchInput" type="text" placeholder="搜索文章标题 / 标签 / 内容…" autocomplete="off">
+        <button class="search-close" id="searchClose" aria-label="关闭">✕</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <div class="search-empty">输入关键词开始搜索…</div>
+      </div>
+    </div>
+  </div>
 
   <!-- 汉堡菜单（收进所有导航） -->
   <nav class="menu-panel" id="menuPanel">
@@ -126,6 +157,7 @@
     </div>
   </footer>
 
-  <script src="<%- url_for('/js/main.js') %>?v=8"></script>
+  <script src="<%- url_for('/js/main.js') %>?v=9"></script>
+  <script src="<%- url_for('/js/search.js') %>?v=1"></script>
 </body>
 </html>
