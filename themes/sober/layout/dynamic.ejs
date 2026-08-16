@@ -1,11 +1,11 @@
-<h1 class="page-title"><%= page.title || theme.dynamics.title || '动态' %></h1>
-<p class="dynamics-subtitle">最近的动态……更多是一些吐槽动态</p>
+<h1 class="page-title">💬 <%= page.title || theme.dynamics.title || '动态' %></h1>
+<p class="dynamics-subtitle">最近的动态……更多是一些吐槽动态 ✨</p>
 <% var dynItems = all_dynamics(); %>
 <div class="dynamics">
   <% if (dynItems.length) { dynItems.forEach(function(item){ %>
   <div class="dynamic-item">
-    <div class="dynamic-date"><%= ddate(item.date) %></div>
-    <% if (item.title && item.title !== '未命名') { %><div class="dynamic-title"><%= item.title %></div><% } %>
+    <div class="dynamic-date">🗓 <%= ddate(item.date) %></div>
+    <% if (item.title && item.title !== '未命名') { %><div class="dynamic-title">💬 <%= item.title %></div><% } %>
     <% if (item.raw) { %>
     <div class="dynamic-content"><%- md(item.content) %></div>
     <% } else { %>
