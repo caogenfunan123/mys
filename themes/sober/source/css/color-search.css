@@ -1,127 +1,77 @@
 /* ============================================
-   sober 主题增强：多套马卡龙渐变配色方案 + 站内搜索面板
-   配色 = 整套背景渐变 + 配套强调色，一起切换
+   sober 主题增强：多套强调色配色方案 + 站内搜索面板
+   （恢复渐变前版本：只切换强调色，背景保持纯色）
    ============================================ */
 
-/* ---------- 多套渐变配色方案（通过 html[data-bg] 切换） ---------- */
+/* ---------- 多套强调色配色方案（通过 html[data-color] 切换） ---------- */
 
-/* 默认：晨曦蓝紫（与 main.css 一致，含光斑） */
-html[data-bg="blue"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(255, 255, 255, 0.4), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(255, 255, 255, 0.35), transparent 70%),
-    linear-gradient(160deg, #bfdbfe 0%, #ddd6fe 45%, #fbcfe8 100%);
-  --bg: #e8ecfb;
+/* 默认：清爽蓝（与 main.css 一致） */
+html[data-color="blue"] {
   --accent: #3b82f6;
-  --accent-2: #8b5cf6;
-  --accent-soft: rgba(59, 130, 246, 0.10);
-  --gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --accent-2: #0ea5e9;
+  --accent-soft: rgba(59, 130, 246, 0.08);
+  --gradient: linear-gradient(135deg, #3b82f6, #0ea5e9);
 }
-html[data-bg="blue"][data-theme="dark"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(139, 92, 246, 0.18), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(59, 130, 246, 0.15), transparent 70%),
-    linear-gradient(160deg, #10131c 0%, #171430 45%, #221627 100%);
-  --bg: #15121f;
+html[data-color="blue"][data-theme="dark"] {
   --accent: #60a5fa;
-  --accent-2: #a78bfa;
-  --accent-soft: rgba(96, 165, 250, 0.14);
-  --gradient: linear-gradient(135deg, #60a5fa, #a78bfa);
+  --accent-2: #22d3ee;
+  --accent-soft: rgba(96, 165, 250, 0.12);
+  --gradient: linear-gradient(135deg, #60a5fa, #22d3ee);
 }
 
-/* 薄荷青绿 */
-html[data-bg="teal"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(255, 255, 255, 0.4), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(255, 255, 255, 0.35), transparent 70%),
-    linear-gradient(160deg, #99f6e4 0%, #a7f3d0 45%, #d1fae5 100%);
-  --bg: #e6f5ef;
+/* 青绿 */
+html[data-color="teal"] {
   --accent: #0d9488;
   --accent-2: #14b8a6;
-  --accent-soft: rgba(13, 148, 136, 0.10);
+  --accent-soft: rgba(13, 148, 136, 0.08);
   --gradient: linear-gradient(135deg, #0d9488, #14b8a6);
 }
-html[data-bg="teal"][data-theme="dark"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(45, 212, 191, 0.15), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(16, 185, 129, 0.12), transparent 70%),
-    linear-gradient(160deg, #0d1516 0%, #10221e 50%, #0f1d1a 100%);
-  --bg: #10201d;
+html[data-color="teal"][data-theme="dark"] {
   --accent: #2dd4bf;
   --accent-2: #5eead4;
-  --accent-soft: rgba(45, 212, 191, 0.14);
+  --accent-soft: rgba(45, 212, 191, 0.12);
   --gradient: linear-gradient(135deg, #2dd4bf, #5eead4);
 }
 
-/* 蜜桃暖橙 */
-html[data-bg="peach"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(255, 255, 255, 0.4), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(255, 255, 255, 0.35), transparent 70%),
-    linear-gradient(160deg, #fed7aa 0%, #fecdd3 45%, #fde68a 100%);
-  --bg: #faf0e6;
+/* 暖橙 */
+html[data-color="orange"] {
   --accent: #ea580c;
   --accent-2: #f59e0b;
-  --accent-soft: rgba(234, 88, 12, 0.10);
+  --accent-soft: rgba(234, 88, 12, 0.08);
   --gradient: linear-gradient(135deg, #ea580c, #f59e0b);
 }
-html[data-bg="peach"][data-theme="dark"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(251, 146, 60, 0.15), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(245, 158, 11, 0.12), transparent 70%),
-    linear-gradient(160deg, #1c1410 0%, #241b12 50%, #1e1610 100%);
-  --bg: #201812;
+html[data-color="orange"][data-theme="dark"] {
   --accent: #fb923c;
   --accent-2: #fbbf24;
-  --accent-soft: rgba(251, 146, 60, 0.14);
+  --accent-soft: rgba(251, 146, 60, 0.12);
   --gradient: linear-gradient(135deg, #fb923c, #fbbf24);
 }
 
-/* 星夜紫罗兰 */
-html[data-bg="violet"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(255, 255, 255, 0.4), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(255, 255, 255, 0.35), transparent 70%),
-    linear-gradient(160deg, #ddd6fe 0%, #e9d5ff 45%, #fae8ff 100%);
-  --bg: #f0ecfb;
+/* 紫罗兰 */
+html[data-color="violet"] {
   --accent: #7c3aed;
   --accent-2: #a78bfa;
-  --accent-soft: rgba(124, 58, 237, 0.10);
+  --accent-soft: rgba(124, 58, 237, 0.08);
   --gradient: linear-gradient(135deg, #7c3aed, #a78bfa);
 }
-html[data-bg="violet"][data-theme="dark"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(167, 139, 250, 0.16), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(124, 58, 237, 0.13), transparent 70%),
-    linear-gradient(160deg, #14101f 0%, #1c1330 50%, #171222 100%);
-  --bg: #171226;
+html[data-color="violet"][data-theme="dark"] {
   --accent: #a78bfa;
   --accent-2: #c4b5fd;
-  --accent-soft: rgba(167, 139, 250, 0.14);
+  --accent-soft: rgba(167, 139, 250, 0.12);
   --gradient: linear-gradient(135deg, #a78bfa, #c4b5fd);
 }
 
-/* 樱花粉 */
-html[data-bg="rose"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(255, 255, 255, 0.4), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(255, 255, 255, 0.35), transparent 70%),
-    linear-gradient(160deg, #fecdd3 0%, #fbcfe8 45%, #fae8ff 100%);
-  --bg: #faf0f4;
+/* 玫红 */
+html[data-color="rose"] {
   --accent: #e11d48;
   --accent-2: #fb7185;
-  --accent-soft: rgba(225, 29, 72, 0.10);
+  --accent-soft: rgba(225, 29, 72, 0.08);
   --gradient: linear-gradient(135deg, #e11d48, #fb7185);
 }
-html[data-bg="rose"][data-theme="dark"] {
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(251, 113, 133, 0.16), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(225, 29, 72, 0.12), transparent 70%),
-    linear-gradient(160deg, #1d1013 0%, #261419 50%, #1d1017 100%);
-  --bg: #221317;
+html[data-color="rose"][data-theme="dark"] {
   --accent: #fb7185;
   --accent-2: #fda4af;
-  --accent-soft: rgba(251, 113, 133, 0.14);
+  --accent-soft: rgba(251, 113, 133, 0.12);
   --gradient: linear-gradient(135deg, #fb7185, #fda4af);
 }
 
@@ -142,8 +92,6 @@ html[data-bg="rose"][data-theme="dark"] {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 .search-toggle:hover,
 .color-toggle:hover {
@@ -171,7 +119,7 @@ html[data-bg="rose"][data-theme="dark"] {
 .search-panel {
   width: 100%;
   max-width: 640px;
-  background: var(--card-solid);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
@@ -290,9 +238,9 @@ html[data-bg="rose"][data-theme="dark"] {
 .color-pop {
   position: fixed;
   top: 60px;
-  right: 110px;
+  right: 70px;
   z-index: 390;
-  background: var(--card-solid);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: var(--shadow-lg);
@@ -316,21 +264,20 @@ html[data-bg="rose"][data-theme="dark"] {
 
 .color-options {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
 
 .color-option {
-  width: 52px;
-  height: 36px;
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
   cursor: pointer;
   border: 2px solid var(--border);
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   position: relative;
-  background-size: cover;
 }
-.color-option:hover { transform: scale(1.08); box-shadow: var(--shadow); }
+.color-option:hover { transform: scale(1.15); box-shadow: var(--shadow); }
 .color-option.active { border-color: var(--text); }
 .color-option.active::after {
   content: "✓";
@@ -340,9 +287,9 @@ html[data-bg="rose"][data-theme="dark"] {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* 手机端配色面板居中 */
@@ -354,6 +301,6 @@ html[data-bg="rose"][data-theme="dark"] {
     margin: 0 auto;
     width: auto;
   }
-  .color-options { grid-template-columns: repeat(3, 1fr); }
+  .color-options { grid-template-columns: repeat(5, 1fr); }
   .search-toggle, .color-toggle { width: 34px; height: 34px; font-size: 15px; }
 }
