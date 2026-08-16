@@ -1,99 +1,77 @@
 <!DOCTYPE html>
 <html lang="<%- config.language || 'zh-CN' %>" data-theme="auto" data-color="blue">
 <%
-  // ===== 防御性取值：任何一项缺失都不让渲染中断 =====
-  var sb = theme.sidebar || {};
-  var menu = theme.menu || {};
-  var dyn = theme.dynamics || {};
-  var ft = theme.footer || {};
-  var handle = '';
-  if (sb.github) {
-    var gs = String(sb.github).split('/');
-    handle = gs[gs.length - 1] || '';
-  }
-  // 标题栏只显示站点名，不带 /@账号（handle 仍用于侧边栏 GitHub 链接）
-  var brandName = config.title || '';
-  var isHome = page.__index === true;
-  var dynItems = [];
-  if (typeof all_dynamics === 'function') {
-    try { dynItems = all_dynamics() || []; } catch (e) { dynItems = []; }
-  }
-  // 菜单小图标映射
-  var menuIcons = {
-    '首页': '🏠', '文章': '📝', '标签': '🏷️', '分类': '📂',
-    '归档': '🗂️', '友链': '🤝', '关于': '👤', '动态': '⚡'
-  };
+var sb = theme.sidebar || {};
+var menu = theme.menu || {};
+var dyn = theme.dynamics || {};
+var ft = theme.footer || {};
+var title = config.title || '';
+var handle = '';
+if (sb.github) { handle = String(sb.github).split('/').pop() || ''; }
+var isHome = page.__index === true;
+var dynItems = [];
+try { dynItems = (typeof all_dynamics === 'function') ? (all_dynamics() || []) : []; } catch (e) { dynItems = []; }
+var icons = {'首页':'🏠','文章':'📝','标签':'🏷️','分类':'📂','归档':'🗂️','友链':'🤝','关于':'👤','动态':'⚡'};
 %>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%- (page.title ? page.title + ' · ' : '') + brandName %></title>
-  <meta name="description" content="<%- page.description || config.description || config.title || '' %>">
-  <% if (theme.favicon) { %>
-  <link rel="icon" href="<%- url_for(theme.favicon) %>">
-  <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') ?>?v=15">
+  <title><%- (page.title ? page.title + ' · ' : '') + title %></title>
+  <meta name="description" content="<%- page.description || config.description || title %>">
+  <% if (theme.favicon) { %><link rel="icon" href="<%- url_for(theme.favicon) %>"><% } %>
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=16">
   <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') %>?v=3">
   <link rel="stylesheet" href="<%- url_for('/css/color-search.css') %>?v=5">
-  <link rel="alternate" type="application/rss+xml" title="<%= config.title || '' %>" href="<%- url_for('/atom.xml') %>">
+  <link rel="alternate" type="application/rss+xml" title="<%= title %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
-        <a class="site-name" href="<%- url_for('/') %>"><%= brandName %></a>
+        <a class="site-name" href="<%- url_for('/') %>"><%= title %></a>
         <span class="site-subtitle"><%= config.subtitle || sb.description || '' %></span>
       </div>
       <div class="header-actions">
-        <button class="search-toggle" id="searchToggle" aria-label="搜索" title="搜索">🔍</button>
-        <button class="color-toggle" id="colorToggle" aria-label="切换配色" title="切换配色">🎨</button>
-        <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换深浅色">◐</button>
-        <button class="menu-toggle" id="menuToggle" aria-label="菜单" title="菜单">☰</button>
+        <button class="search-toggle" id="searchToggle" title="搜索">🔍</button>
+        <button class="color-toggle" id="colorToggle" title="配色">🎨</button>
+        <button class="theme-toggle" id="themeToggle" title="深浅色">◐</button>
+        <button class="menu-toggle" id="menuToggle" title="菜单">☰</button>
       </div>
     </div>
   </header>
 
-  <!-- 配色选择面板（强调色方案） -->
   <div class="color-overlay" id="colorOverlay"></div>
   <div class="color-pop" id="colorPop">
     <div class="color-pop-title">🎨 选择强调色</div>
     <div class="color-options" id="colorOptions">
-      <button class="color-option active" data-color="blue" style="background: linear-gradient(135deg,#3b82f6,#0ea5e9)" title="清爽蓝"></button>
-      <button class="color-option" data-color="teal" style="background: linear-gradient(135deg,#0d9488,#14b8a6)" title="青绿"></button>
-      <button class="color-option" data-color="orange" style="background: linear-gradient(135deg,#ea580c,#f59e0b)" title="暖橙"></button>
-      <button class="color-option" data-color="violet" style="background: linear-gradient(135deg,#7c3aed,#a78bfa)" title="紫罗兰"></button>
-      <button class="color-option" data-color="rose" style="background: linear-gradient(135deg,#e11d48,#fb7185)" title="玫红"></button>
+      <button class="color-option active" data-color="blue" style="background:linear-gradient(135deg,#3b82f6,#0ea5e9)" title="蓝"></button>
+      <button class="color-option" data-color="teal" style="background:linear-gradient(135deg,#0d9488,#14b8a6)" title="青"></button>
+      <button class="color-option" data-color="orange" style="background:linear-gradient(135deg,#ea580c,#f59e0b)" title="橙"></button>
+      <button class="color-option" data-color="violet" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)" title="紫"></button>
+      <button class="color-option" data-color="rose" style="background:linear-gradient(135deg,#e11d48,#fb7185)" title="粉"></button>
     </div>
   </div>
 
-  <!-- 搜索面板 -->
   <div class="search-overlay" id="searchOverlay">
     <div class="search-panel">
       <div class="search-input-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" id="searchInput" type="text" placeholder="搜索文章标题 / 标签 / 内容…" autocomplete="off">
-        <button class="search-close" id="searchClose" aria-label="关闭">✕</button>
+        <input class="search-input" id="searchInput" type="text" placeholder="搜索…" autocomplete="off">
+        <button class="search-close" id="searchClose">✕</button>
       </div>
-      <div class="search-results" id="searchResults">
-        <div class="search-empty">输入关键词开始搜索…</div>
-      </div>
+      <div class="search-results" id="searchResults"><div class="search-empty">输入关键词开始搜索…</div></div>
     </div>
   </div>
 
-  <!-- 汉堡菜单（收进所有导航） -->
   <nav class="menu-panel" id="menuPanel">
     <div class="container">
       <ul class="menu-list">
         <% for (var name in menu) {
           var p = String(menu[name] || '').replace(/^\//, '');
-          var isActive = p === ''
-            ? (page.path === '' || page.path === 'index.html')
-            : (page.path && page.path.indexOf(p) === 0);
+          var isActive = (p === '') ? (page.path === '' || page.path === 'index.html') : (page.path && page.path.indexOf(p) === 0);
         %>
         <li class="menu-item<%- isActive ? ' active' : '' %>">
-          <a href="<%- url_for(menu[name]) %>">
-            <span class="menu-icon"><%= menuIcons[name] || '•' %></span><%= name %>
-          </a>
+          <a href="<%- url_for(menu[name]) %>"><span class="menu-icon"><%= icons[name] || '•' %></span><%= name %></a>
         </li>
         <% } %>
       </ul>
@@ -104,26 +82,15 @@
   <div class="container layout">
     <% if (sb.enable) { %>
     <aside class="sidebar">
-      <!-- 资料卡片（所有页面显示） -->
       <div class="sidebar-card">
         <div class="sidebar-avatar">
-          <% if (sb.avatar) { %>
-          <img src="<%- url_for(sb.avatar) %>" alt="avatar">
-          <% } else { %>
-          <span class="avatar-fallback"><%= (config.author || config.title || '?').charAt(0) %></span>
-          <% } %>
+          <% if (sb.avatar) { %><img src="<%- url_for(sb.avatar) %>" alt="avatar"><% } else { %><span class="avatar-fallback"><%= (config.author || title || '?').charAt(0) %></span><% } %>
         </div>
-        <div class="sidebar-name"><%= config.author || config.title || '' %></div>
+        <div class="sidebar-name"><%= config.author || title %></div>
         <div class="sidebar-desc"><%= config.subtitle || sb.description || '' %></div>
-        <% if (handle) { %>
-        <a class="sidebar-github" href="<%- sb.github %>" target="_blank" rel="noopener">🐙 GitHub - @<%= handle %></a>
-        <% } %>
-        <% if (sb.bio) { %>
-        <div class="sidebar-bio"><%= sb.bio %></div>
-        <% } %>
+        <% if (handle) { %><a class="sidebar-github" href="<%- sb.github %>" target="_blank" rel="noopener">🐙 GitHub - @<%= handle %></a><% } %>
+        <% if (sb.bio) { %><div class="sidebar-bio"><%= sb.bio %></div><% } %>
       </div>
-
-      <!-- 最新动态卡片（内嵌可滚动框，只在首页显示） -->
       <% if (isHome && dynItems.length) { %>
       <div class="sidebar-card sidebar-dynamics-card">
         <div class="sidebar-card-title">⚡ 最新动态</div>
@@ -132,11 +99,7 @@
           <div class="sidebar-dynamic">
             <div class="sidebar-dynamic-date">🗓 <%= ddate(item.date) %></div>
             <% if (item.title && item.title !== '未命名') { %><div class="sidebar-dynamic-title">💬 <%= item.title %></div><% } %>
-            <% if (item.raw) { %>
-            <div class="sidebar-dynamic-content"><%- md(item.content) %></div>
-            <% } else { %>
-            <div class="sidebar-dynamic-content"><%- item.content %></div>
-            <% } %>
+            <div class="sidebar-dynamic-content"><%- item.raw ? md(item.content) : item.content %></div>
           </div>
           <% }) %>
         </div>
@@ -145,18 +108,13 @@
       <% } %>
     </aside>
     <% } %>
-
-    <main class="site-main">
-      <%- body %>
-    </main>
+    <main class="site-main"><%- body %></main>
   </div>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <%= new Date().getFullYear() %> <%= config.author || config.title || '' %>. 保留所有权利。</p>
-      <% if (ft.copyright) { %>
-      <p><%= ft.copyright %></p>
-      <% } %>
+      <p>© <%= new Date().getFullYear() %> <%= config.author || title %>. 保留所有权利。</p>
+      <% if (ft.copyright) { %><p><%= ft.copyright %></p><% } %>
     </div>
   </footer>
 
