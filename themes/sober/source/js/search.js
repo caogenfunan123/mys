@@ -1,4 +1,4 @@
-/* sober 主题：站内搜索 + 多配色切换（无 npm 依赖） */
+/* sober 主题：站内搜索 + 多渐变配色切换（无 npm 依赖） */
 (function () {
   "use strict";
 
@@ -11,21 +11,22 @@
     if (root[root.length - 1] !== "/") root += "/";
   }
 
-  /* ================= 多配色切换 ================= */
+  /* ================= 多渐变配色切换 ================= */
   var rootEl = document.documentElement;
   var colorBtn = document.getElementById("colorToggle");
   var colorPop = document.getElementById("colorPop");
   var colorOverlay = document.getElementById("colorOverlay");
   var colorOptions = document.getElementById("colorOptions");
 
-  var storedColor = localStorage.getItem("sober-color");
-  if (storedColor) rootEl.setAttribute("data-color", storedColor);
+  // 从 localStorage 恢复配色（兼容旧版 data-color，迁移到 data-bg）
+  var storedBg = localStorage.getItem("sober-bg") || localStorage.getItem("sober-color");
+  if (storedBg) rootEl.setAttribute("data-bg", storedBg);
 
   function syncActive() {
-    var cur = rootEl.getAttribute("data-color") || "blue";
+    var cur = rootEl.getAttribute("data-bg") || "blue";
     var opts = colorOptions ? colorOptions.querySelectorAll(".color-option") : [];
     for (var i = 0; i < opts.length; i++) {
-      if (opts[i].getAttribute("data-color") === cur) opts[i].classList.add("active");
+      if (opts[i].getAttribute("data-bg") === cur) opts[i].classList.add("active");
       else opts[i].classList.remove("active");
     }
   }
@@ -47,9 +48,11 @@
       colorOptions.addEventListener("click", function (e) {
         var btn = e.target.closest ? e.target.closest(".color-option") : null;
         if (!btn) return;
-        var c = btn.getAttribute("data-color");
-        rootEl.setAttribute("data-color", c);
-        localStorage.setItem("sober-color", c);
+        var bg = btn.getAttribute("data-bg");
+        if (!bg) return;
+        rootEl.setAttribute("data-bg", bg);
+        localStorage.setItem("sober-bg", bg);
+        localStorage.removeItem("sober-color");
         syncActive();
         // 稍后自动收起
         setTimeout(function () {
