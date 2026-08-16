@@ -11,7 +11,8 @@
     var gs = String(sb.github).split('/');
     handle = gs[gs.length - 1] || '';
   }
-  var brandName = (config.title || '') + (handle ? ' / @' + handle : '');
+  // 标题栏只显示站点名，不带 /@账号（handle 仍用于侧边栏 GitHub 链接）
+  var brandName = config.title || '';
   var isHome = page.__index === true;
   var dynItems = [];
   if (typeof all_dynamics === 'function') {
@@ -31,7 +32,7 @@
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=15">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') ?>?v=15">
   <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') %>?v=3">
   <link rel="stylesheet" href="<%- url_for('/css/color-search.css') %>?v=5">
   <link rel="alternate" type="application/rss+xml" title="<%= config.title || '' %>" href="<%- url_for('/atom.xml') %>">
