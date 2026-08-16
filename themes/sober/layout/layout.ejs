@@ -28,9 +28,9 @@
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') ?>?v=11">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') ?>?v=12">
   <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') ?>?v=3">
-  <link rel="stylesheet" href="<%- url_for('/css/color-search.css') ?>?v=2">
+  <link rel="stylesheet" href="<%- url_for('/css/color-search.css') ?>?v=3">
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
@@ -54,11 +54,11 @@
   <div class="color-pop" id="colorPop">
     <div class="color-pop-title">🎨 选择背景配色</div>
     <div class="color-options" id="colorOptions">
-      <button class="color-option active" data-bg="blue" style="background: linear-gradient(135deg,#eaf2ff,#f2eeff,#ffeef6)" title="晨曦蓝紫"></button>
-      <button class="color-option" data-bg="teal" style="background: linear-gradient(135deg,#e6f7f3,#eef7ef,#e9f5f0)" title="薄荷青绿"></button>
-      <button class="color-option" data-bg="peach" style="background: linear-gradient(135deg,#fff3ea,#fff0f2,#fef3e2)" title="蜜桃暖橙"></button>
-      <button class="color-option" data-bg="violet" style="background: linear-gradient(135deg,#f0ecff,#f3efff,#f7f0ff)" title="星夜紫罗兰"></button>
-      <button class="color-option" data-bg="rose" style="background: linear-gradient(135deg,#fff0f5,#ffeef1,#fdf0ff)" title="樱花粉"></button>
+      <button class="color-option active" data-bg="blue" style="background: linear-gradient(135deg,#bfdbfe,#ddd6fe,#fbcfe8)" title="晨曦蓝紫"></button>
+      <button class="color-option" data-bg="teal" style="background: linear-gradient(135deg,#99f6e4,#a7f3d0,#d1fae5)" title="薄荷青绿"></button>
+      <button class="color-option" data-bg="peach" style="background: linear-gradient(135deg,#fed7aa,#fecdd3,#fde68a)" title="蜜桃暖橙"></button>
+      <button class="color-option" data-bg="violet" style="background: linear-gradient(135deg,#ddd6fe,#e9d5ff,#fae8ff)" title="星夜紫罗兰"></button>
+      <button class="color-option" data-bg="rose" style="background: linear-gradient(135deg,#fecdd3,#fbcfe8,#fae8ff)" title="樱花粉"></button>
     </div>
   </div>
 
