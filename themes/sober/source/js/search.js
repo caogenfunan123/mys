@@ -1,9 +1,8 @@
-/* sober 主题：站内搜索 + 多渐变配色切换（无 npm 依赖） */
+/* sober 主题：站内搜索 + 强调色切换（无 npm 依赖） */
 (function () {
   "use strict";
 
   /* ================= 站点根路径探测 ================= */
-  // 通过 header 里的 logo 链接拿到 root（如 /mys/），避免硬编码
   var root = "/";
   var logo = document.querySelector(".site-name");
   if (logo && logo.getAttribute("href")) {
@@ -11,22 +10,23 @@
     if (root[root.length - 1] !== "/") root += "/";
   }
 
-  /* ================= 多渐变配色切换 ================= */
+  /* ================= 强调色切换（data-color） ================= */
   var rootEl = document.documentElement;
   var colorBtn = document.getElementById("colorToggle");
   var colorPop = document.getElementById("colorPop");
   var colorOverlay = document.getElementById("colorOverlay");
   var colorOptions = document.getElementById("colorOptions");
 
-  // 从 localStorage 恢复配色（兼容旧版 data-color，迁移到 data-bg）
-  var storedBg = localStorage.getItem("sober-bg") || localStorage.getItem("sober-color");
-  if (storedBg) rootEl.setAttribute("data-bg", storedBg);
+  // 从 localStorage 恢复（兼容旧版 data-bg 迁移）
+  var storedColor = localStorage.getItem("sober-color");
+  if (!storedColor) storedColor = localStorage.getItem("sober-bg");
+  if (storedColor) rootEl.setAttribute("data-color", storedColor);
 
   function syncActive() {
-    var cur = rootEl.getAttribute("data-bg") || "blue";
+    var cur = rootEl.getAttribute("data-color") || "blue";
     var opts = colorOptions ? colorOptions.querySelectorAll(".color-option") : [];
     for (var i = 0; i < opts.length; i++) {
-      if (opts[i].getAttribute("data-bg") === cur) opts[i].classList.add("active");
+      if (opts[i].getAttribute("data-color") === cur) opts[i].classList.add("active");
       else opts[i].classList.remove("active");
     }
   }
@@ -48,13 +48,12 @@
       colorOptions.addEventListener("click", function (e) {
         var btn = e.target.closest ? e.target.closest(".color-option") : null;
         if (!btn) return;
-        var bg = btn.getAttribute("data-bg");
-        if (!bg) return;
-        rootEl.setAttribute("data-bg", bg);
-        localStorage.setItem("sober-bg", bg);
-        localStorage.removeItem("sober-color");
+        var c = btn.getAttribute("data-color");
+        if (!c) return;
+        rootEl.setAttribute("data-color", c);
+        localStorage.setItem("sober-color", c);
+        localStorage.removeItem("sober-bg");
         syncActive();
-        // 稍后自动收起
         setTimeout(function () {
           colorPop.classList.remove("show");
           if (colorOverlay) colorOverlay.classList.remove("show");
@@ -94,14 +93,12 @@
   }
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") closeSearch();
-    // Ctrl/Cmd + K 快捷搜索
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
       e.preventDefault();
       openSearch();
     }
   });
 
-  // 阻止面板内点击冒泡关闭
   if (searchPanel) {
     searchPanel.addEventListener("click", function (e) { e.stopPropagation(); });
   }
@@ -156,7 +153,6 @@
     var html = hits.slice(0, 20).map(function (p) {
       var tags = (p.tags || []).map(function (t) { return "#" + esc(t); }).join(" ");
       var cats = (p.categories || []).join(" ");
-      // 从正文中截取包含关键词的片段
       var content = p.content || "";
       var idx = content.toLowerCase().indexOf(q);
       var excerpt = "";
