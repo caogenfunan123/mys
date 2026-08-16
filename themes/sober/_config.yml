@@ -1,7 +1,10 @@
-# sober 风格主题配置
-# 全面复刻 tobylai.fun (sober 2.x) 布局：左侧固定边栏 + 右侧内容区
+# ============================================
+# sober 主题配置
+# 一款简洁优雅的 Hexo 主题：左侧固定边栏 + 右侧内容区
+# 支持：深浅色切换 / 强调色切换 / 站内搜索 / 动态说说 / 友链
+# ============================================
 
-# 导航菜单（值为站点根路径下的绝对路径，自动拼接 /mys/ 前缀）
+# 导航菜单（值为站点根路径下的绝对路径，Hexo 会自动拼接 root 前缀）
 menu:
   首页: /
   文章: /posts/
@@ -12,24 +15,25 @@ menu:
   关于: /about/
   动态: /dynamics/
 
-# 站点图标（可选）
+# 站点图标（可选，填入图片 URL 或相对路径）
 favicon: ""
 
 # 左侧固定边栏
 sidebar:
   enable: true
-  avatar: "https://cdn.jsdelivr.net/gh/caogenfunan123/xiamend@main/images/img_1786797917490.png"
+  avatar: ""                      # 头像图片地址（留空则显示站点名首字母）
   description: focusing on interesting things
-  github: https://github.com/caogenfunan123
-  bio: 在搞信息学竞赛，对编程和计算机科学很感兴趣。喜欢折腾。
+  github: ""                      # GitHub 主页地址（可选）
+  bio: ""                         # 一句话个人介绍（可选）
 
 # 首页"关于"区块
 profile:
   title: 关于
-  content: 喜欢做项目，热爱 Web 开发、软件工程和一些 DIY。项目可以去我的 GitHub 看看。
-  more_text: 最近在折腾什么？大部分都是写着玩的。
+  content: 这里填写你的个人简介，例如：热爱编程，喜欢折腾各种有趣的项目。
+  more_text: 了解更多
+  more_link: /about/
 
-# 动态区块
+# 动态区块（需在 source/_data/dynamics.yml 维护动态数据，或写 type: dynamic 的说说文章）
 dynamics:
   title: 动态
   count: 5                       # 首页显示最新几条
