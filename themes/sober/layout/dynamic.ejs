@@ -1,6 +1,6 @@
 <h1 class="page-title">💬 <%= page.title || theme.dynamics.title || '动态' %></h1>
 <p class="dynamics-subtitle">最近的动态……更多是一些吐槽动态 ✨</p>
-<% var dynItems = all_dynamics(); %>
+<% var dynItems = []; if (typeof all_dynamics === 'function') { try { dynItems = all_dynamics() || []; } catch (e) { dynItems = []; } } %>
 <div class="dynamics">
   <% if (dynItems.length) { dynItems.forEach(function(item){ %>
   <div class="dynamic-item">
