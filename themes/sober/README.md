@@ -20,8 +20,8 @@
 ## 📦 安装
 
 ```bash
-# 1. 克隆主题到 themes 目录（请替换为你的仓库地址）
-git clone https://github.com/<你的用户名>/hexo-theme-sober.git themes/sober
+# 1. 克隆主题到 themes 目录
+git clone https://github.com/caogenfunan123/zhuti.git themes/sober
 
 # 2. 修改站点 _config.yml
 theme: sober
