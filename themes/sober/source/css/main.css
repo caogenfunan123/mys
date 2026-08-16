@@ -2,56 +2,44 @@
    sober 2.x 风格主题样式（复刻 tobylai.fun）
    桌面：左侧固定边栏 + 右侧内容 + 汉堡菜单
    手机：顶部资料卡 + 单栏内容 + 汉堡菜单（清爽不挤压）
-   美化版：马卡龙渐变背景 + 梦幻光斑 + 半透明毛玻璃卡片
+   美化版：完整配色体系（主色/辅助/信息色）+ 渐变装饰 + 小图标
    ============================================ */
 
 :root {
-  /* 渐变背景（浅色）：蓝 → 紫 → 粉，马卡龙彩色，明显可见 */
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(255, 255, 255, 0.4), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(255, 255, 255, 0.35), transparent 70%),
-    linear-gradient(160deg, #bfdbfe 0%, #ddd6fe 45%, #fbcfe8 100%);
-  --bg: #e8ecfb;                /* 兜底纯色（滚动条/圆点边框等） */
-  --card: rgba(255, 255, 255, 0.78);   /* 半透明白卡片（毛玻璃） */
-  --card-solid: #ffffff;
+  --bg: #f6f7fb;
+  --card: #ffffff;
   --text: #1f2430;
-  --muted: #7a8194;
+  --muted: #8a919f;
   --accent: #3b82f6;            /* 主色：清爽蓝 */
-  --accent-2: #8b5cf6;          /* 辅助色：紫 */
-  --accent-soft: rgba(59, 130, 246, 0.10);
+  --accent-2: #0ea5e9;          /* 辅助色：天青 */
+  --accent-soft: rgba(59, 130, 246, 0.08);
   --success: #10b981;           /* 信息色：成功 */
   --warning: #f59e0b;           /* 信息色：警告 */
   --danger: #ef4444;            /* 信息色：错误 */
-  --border: rgba(255, 255, 255, 0.7);
-  --code-bg: rgba(244, 245, 247, 0.8);
-  --radius: 14px;
-  --shadow: 0 2px 12px rgba(80, 90, 140, 0.12);
-  --shadow-lg: 0 14px 44px rgba(80, 90, 140, 0.22);
-  --gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --border: #e8eaf0;
+  --code-bg: #f4f5f7;
+  --radius: 12px;
+  --shadow: 0 1px 4px rgba(17, 24, 39, 0.06);
+  --shadow-lg: 0 10px 34px rgba(17, 24, 39, 0.10);
+  --gradient: linear-gradient(135deg, #3b82f6, #0ea5e9);
 }
 
 html[data-theme="dark"] {
-  /* 渐变背景（深色）：深蓝 → 深紫 → 暗红 */
-  --bg-grad:
-    radial-gradient(600px 400px at 85% 8%, rgba(139, 92, 246, 0.18), transparent 70%),
-    radial-gradient(700px 500px at 12% 92%, rgba(59, 130, 246, 0.15), transparent 70%),
-    linear-gradient(160deg, #10131c 0%, #171430 45%, #221627 100%);
-  --bg: #15121f;
-  --card: rgba(23, 26, 33, 0.78);
-  --card-solid: #171a21;
+  --bg: #0f1115;
+  --card: #171a21;
   --text: #e6e9ef;
   --muted: #8b93a3;
   --accent: #60a5fa;
-  --accent-2: #a78bfa;
-  --accent-soft: rgba(96, 165, 250, 0.14);
+  --accent-2: #22d3ee;
+  --accent-soft: rgba(96, 165, 250, 0.12);
   --success: #34d399;
   --warning: #fbbf24;
   --danger: #f87171;
-  --border: rgba(255, 255, 255, 0.10);
-  --code-bg: rgba(30, 34, 43, 0.7);
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 14px 44px rgba(0, 0, 0, 0.5);
-  --gradient: linear-gradient(135deg, #60a5fa, #a78bfa);
+  --border: #262b36;
+  --code-bg: #1e222b;
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 34px rgba(0, 0, 0, 0.45);
+  --gradient: linear-gradient(135deg, #60a5fa, #22d3ee);
 }
 
 * { box-sizing: border-box; }
@@ -62,8 +50,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  /* 渐变背景固定填充（多层：光斑 + 马卡龙渐变），滚动时保持整体感 */
-  background: var(--bg-grad) fixed;
+  background: var(--bg);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
@@ -90,9 +77,8 @@ a:hover { opacity: 0.75; }
   position: sticky;
   top: 0;
   z-index: 200;
-  background: color-mix(in srgb, var(--card-solid) 62%, transparent);
-  backdrop-filter: saturate(180%) blur(16px);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
 }
 
 /* 顶部品牌渐变色条 */
@@ -164,8 +150,6 @@ a:hover { opacity: 0.75; }
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .theme-toggle:hover, .menu-toggle:hover,
@@ -184,7 +168,7 @@ a:hover { opacity: 0.75; }
   width: 300px;
   max-width: 85vw;
   height: 100vh;
-  background: var(--card-solid);
+  background: var(--card);
   border-left: 1px solid var(--border);
   box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
   transform: translateX(105%);
@@ -267,8 +251,6 @@ a:hover { opacity: 0.75; }
   border-radius: var(--radius);
   padding: 20px;
   box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
@@ -347,13 +329,13 @@ a:hover { opacity: 0.75; }
   overscroll-behavior: contain;
   padding-right: 4px;
   scrollbar-width: thin;
-  scrollbar-color: var(--muted) transparent;
+  scrollbar-color: var(--border) transparent;
 }
 
 .sidebar-dynamics-scroll::-webkit-scrollbar { width: 5px; }
 .sidebar-dynamics-scroll::-webkit-scrollbar-track { background: transparent; }
-.sidebar-dynamics-scroll::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
-.sidebar-dynamics-scroll::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+.sidebar-dynamics-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.sidebar-dynamics-scroll::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
 .sidebar-dynamic {
   padding: 10px 0;
@@ -453,7 +435,7 @@ a:hover { opacity: 0.75; }
   height: 10px;
   border-radius: 50%;
   background: var(--gradient);
-  border: 2px solid var(--card-solid);
+  border: 2px solid var(--bg);
   box-shadow: 0 0 0 2px var(--accent);
 }
 
@@ -594,8 +576,6 @@ a:hover { opacity: 0.75; }
   color: var(--text);
   font-size: 14px;
   background: var(--card);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   transition: border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
@@ -619,8 +599,6 @@ a:hover { opacity: 0.75; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--code-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .friend-self-name { font-weight: 600; }
@@ -635,8 +613,6 @@ a:hover { opacity: 0.75; }
   border-radius: var(--radius);
   color: var(--text);
   background: var(--card);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
@@ -698,7 +674,7 @@ a:hover { opacity: 0.75; }
   padding: 14px 20px;
   border-left: 3px solid var(--accent);
   color: var(--muted);
-  background: var(--accent-soft);
+  background: var(--code-bg);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 
@@ -765,8 +741,6 @@ a:hover { opacity: 0.75; }
   border-radius: 8px;
   color: var(--text);
   background: var(--card);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   transition: border-color 0.2s, color 0.2s;
 }
 .pagination a:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
