@@ -8,6 +8,17 @@
   var brandName = config.title + (handle ? ' / @' + handle : '');
   var isHome = page.__index === true;
   var dynItems = all_dynamics();
+  // 菜单小图标映射（无图标库，用 emoji 零依赖）
+  var menuIcons = {
+    '首页': '🏠',
+    '文章': '📝',
+    '标签': '🏷️',
+    '分类': '📂',
+    '归档': '🗂️',
+    '友链': '🤝',
+    '关于': '👤',
+    '动态': '⚡'
+  };
 %>
 <head>
   <meta charset="UTF-8">
@@ -17,8 +28,8 @@
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=8">
-  <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') %>?v=2">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') %>?v=9">
+  <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') %>?v=3">
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
@@ -46,7 +57,9 @@
             : (page.path && page.path.indexOf(p) === 0);
         %>
         <li class="menu-item<%- isActive ? ' active' : '' %>">
-          <a href="<%- url_for(theme.menu[name]) %>"><%= name %></a>
+          <a href="<%- url_for(theme.menu[name]) %>">
+            <span class="menu-icon"><%= menuIcons[name] || '•' %></span><%= name %>
+          </a>
         </li>
         <% } %>
       </ul>
@@ -69,7 +82,7 @@
         <div class="sidebar-name"><%= config.author || config.title %></div>
         <div class="sidebar-desc"><%= config.subtitle || theme.sidebar.description %></div>
         <% if (handle) { %>
-        <a class="sidebar-github" href="<%= theme.sidebar.github %>" target="_blank" rel="noopener">GitHub - @<%= handle %></a>
+        <a class="sidebar-github" href="<%= theme.sidebar.github %>" target="_blank" rel="noopener">🐙 GitHub - @<%= handle %></a>
         <% } %>
         <% if (theme.sidebar.bio) { %>
         <div class="sidebar-bio"><%= theme.sidebar.bio %></div>
@@ -83,8 +96,8 @@
         <div class="sidebar-dynamics-scroll">
           <% dynItems.slice(0, theme.sidebar.dynamics_count || 8).forEach(function(item){ %>
           <div class="sidebar-dynamic">
-            <div class="sidebar-dynamic-date"><%= ddate(item.date) %></div>
-            <% if (item.title && item.title !== '未命名') { %><div class="sidebar-dynamic-title"><%= item.title %></div><% } %>
+            <div class="sidebar-dynamic-date">🗓 <%= ddate(item.date) %></div>
+            <% if (item.title && item.title !== '未命名') { %><div class="sidebar-dynamic-title">💬 <%= item.title %></div><% } %>
             <% if (item.raw) { %>
             <div class="sidebar-dynamic-content"><%- md(item.content) %></div>
             <% } else { %>
