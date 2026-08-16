@@ -1,78 +1,98 @@
 /* ============================================
-   sober 主题增强：多套配色方案 + 站内搜索面板
+   sober 主题增强：多套渐变配色方案 + 站内搜索面板
+   配色 = 整套背景渐变 + 配套强调色，一起切换
    ============================================ */
 
-/* ---------- 多套配色方案（通过 html[data-color] 切换） ---------- */
-/* 默认（蓝）已在 main.css :root 定义，这里提供更多可选方案 */
+/* ---------- 多套渐变配色方案（通过 html[data-bg] 切换） ---------- */
 
-/* 青绿 */
-html[data-color="teal"] {
+/* 默认：晨曦蓝紫（main.css 已定义，这里兜底） */
+html[data-bg="blue"] {
+  --bg-grad: linear-gradient(160deg, #eaf2ff 0%, #f2eeff 45%, #ffeef6 100%);
+  --bg: #f0f2fb;
+  --accent: #3b82f6;
+  --accent-2: #0ea5e9;
+  --accent-soft: rgba(59, 130, 246, 0.10);
+  --gradient: linear-gradient(135deg, #3b82f6, #0ea5e9);
+}
+html[data-bg="blue"][data-theme="dark"] {
+  --bg-grad: linear-gradient(160deg, #10131c 0%, #171430 45%, #221627 100%);
+  --bg: #15121f;
+  --accent: #60a5fa;
+  --accent-2: #22d3ee;
+  --accent-soft: rgba(96, 165, 250, 0.14);
+  --gradient: linear-gradient(135deg, #60a5fa, #22d3ee);
+}
+
+/* 薄荷青绿 */
+html[data-bg="teal"] {
+  --bg-grad: linear-gradient(160deg, #e6f7f3 0%, #eef7ef 45%, #e9f5f0 100%);
+  --bg: #eef4f2;
   --accent: #0d9488;
   --accent-2: #14b8a6;
-  --accent-soft: rgba(13, 148, 136, 0.08);
+  --accent-soft: rgba(13, 148, 136, 0.10);
   --gradient: linear-gradient(135deg, #0d9488, #14b8a6);
 }
-html[data-color="teal"][data-theme="dark"] {
+html[data-bg="teal"][data-theme="dark"] {
+  --bg-grad: linear-gradient(160deg, #0d1516 0%, #10221e 50%, #0f1d1a 100%);
+  --bg: #10201d;
   --accent: #2dd4bf;
   --accent-2: #5eead4;
-  --accent-soft: rgba(45, 212, 191, 0.12);
+  --accent-soft: rgba(45, 212, 191, 0.14);
   --gradient: linear-gradient(135deg, #2dd4bf, #5eead4);
 }
 
-/* 暖橙 */
-html[data-color="orange"] {
+/* 蜜桃暖橙 */
+html[data-bg="peach"] {
+  --bg-grad: linear-gradient(160deg, #fff3ea 0%, #fff0f2 45%, #fef3e2 100%);
+  --bg: #faf1ec;
   --accent: #ea580c;
   --accent-2: #f59e0b;
-  --accent-soft: rgba(234, 88, 12, 0.08);
+  --accent-soft: rgba(234, 88, 12, 0.10);
   --gradient: linear-gradient(135deg, #ea580c, #f59e0b);
 }
-html[data-color="orange"][data-theme="dark"] {
+html[data-bg="peach"][data-theme="dark"] {
+  --bg-grad: linear-gradient(160deg, #1c1410 0%, #241b12 50%, #1e1610 100%);
+  --bg: #201812;
   --accent: #fb923c;
   --accent-2: #fbbf24;
-  --accent-soft: rgba(251, 146, 60, 0.12);
+  --accent-soft: rgba(251, 146, 60, 0.14);
   --gradient: linear-gradient(135deg, #fb923c, #fbbf24);
 }
 
-/* 紫罗兰 */
-html[data-color="violet"] {
+/* 星夜紫罗兰 */
+html[data-bg="violet"] {
+  --bg-grad: linear-gradient(160deg, #f0ecff 0%, #f3efff 45%, #f7f0ff 100%);
+  --bg: #f2eefb;
   --accent: #7c3aed;
   --accent-2: #a78bfa;
-  --accent-soft: rgba(124, 58, 237, 0.08);
+  --accent-soft: rgba(124, 58, 237, 0.10);
   --gradient: linear-gradient(135deg, #7c3aed, #a78bfa);
 }
-html[data-color="violet"][data-theme="dark"] {
+html[data-bg="violet"][data-theme="dark"] {
+  --bg-grad: linear-gradient(160deg, #14101f 0%, #1c1330 50%, #171222 100%);
+  --bg: #171226;
   --accent: #a78bfa;
   --accent-2: #c4b5fd;
-  --accent-soft: rgba(167, 139, 250, 0.12);
+  --accent-soft: rgba(167, 139, 250, 0.14);
   --gradient: linear-gradient(135deg, #a78bfa, #c4b5fd);
 }
 
-/* 玫红 */
-html[data-color="rose"] {
+/* 樱花粉 */
+html[data-bg="rose"] {
+  --bg-grad: linear-gradient(160deg, #fff0f5 0%, #ffeef1 45%, #fdf0ff 100%);
+  --bg: #faf0f4;
   --accent: #e11d48;
   --accent-2: #fb7185;
-  --accent-soft: rgba(225, 29, 72, 0.08);
+  --accent-soft: rgba(225, 29, 72, 0.10);
   --gradient: linear-gradient(135deg, #e11d48, #fb7185);
 }
-html[data-color="rose"][data-theme="dark"] {
+html[data-bg="rose"][data-theme="dark"] {
+  --bg-grad: linear-gradient(160deg, #1d1013 0%, #261419 50%, #1d1017 100%);
+  --bg: #221317;
   --accent: #fb7185;
   --accent-2: #fda4af;
-  --accent-soft: rgba(251, 113, 133, 0.12);
+  --accent-soft: rgba(251, 113, 133, 0.14);
   --gradient: linear-gradient(135deg, #fb7185, #fda4af);
-}
-
-/* 极客绿 */
-html[data-color="green"] {
-  --accent: #16a34a;
-  --accent-2: #22c55e;
-  --accent-soft: rgba(22, 163, 74, 0.08);
-  --gradient: linear-gradient(135deg, #16a34a, #22c55e);
-}
-html[data-color="green"][data-theme="dark"] {
-  --accent: #4ade80;
-  --accent-2: #86efac;
-  --accent-soft: rgba(74, 222, 128, 0.12);
-  --gradient: linear-gradient(135deg, #4ade80, #86efac);
 }
 
 /* ---------- 搜索与配色切换按钮（header 操作区） ---------- */
@@ -92,6 +112,8 @@ html[data-color="green"][data-theme="dark"] {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .search-toggle:hover,
 .color-toggle:hover {
@@ -104,7 +126,7 @@ html[data-color="green"][data-theme="dark"] {
 .search-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(30, 30, 50, 0.45);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s;
@@ -119,7 +141,7 @@ html[data-color="green"][data-theme="dark"] {
 .search-panel {
   width: 100%;
   max-width: 640px;
-  background: var(--card);
+  background: var(--card-solid);
   border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
@@ -167,7 +189,7 @@ html[data-color="green"][data-theme="dark"] {
   padding: 8px 0;
 }
 .search-results::-webkit-scrollbar { width: 5px; }
-.search-results::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.search-results::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
 
 .search-empty {
   padding: 24px 18px;
@@ -227,7 +249,7 @@ html[data-color="green"][data-theme="dark"] {
 .color-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(30, 30, 50, 0.2);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s;
@@ -238,9 +260,9 @@ html[data-color="green"][data-theme="dark"] {
 .color-pop {
   position: fixed;
   top: 60px;
-  right: 70px;
+  right: 110px;
   z-index: 390;
-  background: var(--card);
+  background: var(--card-solid);
   border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: var(--shadow-lg);
@@ -264,20 +286,21 @@ html[data-color="green"][data-theme="dark"] {
 
 .color-options {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
 .color-option {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: 52px;
+  height: 36px;
+  border-radius: 10px;
   cursor: pointer;
   border: 2px solid var(--border);
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   position: relative;
+  background-size: cover;
 }
-.color-option:hover { transform: scale(1.15); box-shadow: var(--shadow); }
+.color-option:hover { transform: scale(1.08); box-shadow: var(--shadow); }
 .color-option.active { border-color: var(--text); }
 .color-option.active::after {
   content: "✓";
@@ -287,9 +310,9 @@ html[data-color="green"][data-theme="dark"] {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* 手机端配色面板居中 */
@@ -301,6 +324,6 @@ html[data-color="green"][data-theme="dark"] {
     margin: 0 auto;
     width: auto;
   }
-  .color-options { grid-template-columns: repeat(5, 1fr); }
+  .color-options { grid-template-columns: repeat(3, 1fr); }
   .search-toggle, .color-toggle { width: 34px; height: 34px; font-size: 15px; }
 }
