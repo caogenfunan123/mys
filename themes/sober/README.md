@@ -20,8 +20,8 @@
 ## 📦 安装
 
 ```bash
-# 1. 克隆主题到 themes 目录
-git clone https://github.com/你的用户名/hexo-theme-sober.git themes/sober
+# 1. 克隆主题到 themes 目录（请替换为你的仓库地址）
+git clone https://github.com/<你的用户名>/hexo-theme-sober.git themes/sober
 
 # 2. 修改站点 _config.yml
 theme: sober
@@ -98,16 +98,22 @@ date: 2026-08-16 12:00:00
 ```
 themes/sober/
 ├── _config.yml          # 主题配置
+├── package.json         # 主题元信息
+├── LICENSE              # MIT 许可证
 ├── layout/              # EJS 模板
 │   ├── layout.ejs       # 主布局
 │   ├── index.ejs        # 首页
 │   ├── post.ejs         # 文章页
+│   ├── page.ejs         # 独立页面
+│   ├── posts.ejs        # 文章列表
 │   ├── archive.ejs      # 归档
-│   ├── tag.ejs          # 标签
-│   ├── category.ejs     # 分类
+│   ├── tag.ejs          # 标签页（单个）
+│   ├── tags.ejs         # 标签页（列表）
+│   ├── category.ejs     # 分类页（单个）
+│   ├── categories.ejs   # 分类页（列表）
 │   ├── friends.ejs      # 友链
-│   ├── dynamics.ejs     # 动态
-│   └── about.ejs        # 关于
+│   ├── dynamic.ejs      # 动态说说
+│   └── _partial/        # 局部模板（页头/页脚/侧边栏等）
 ├── scripts/             # Hexo 构建脚本
 │   ├── helpers.js       # 模板辅助函数
 │   └── search-generator.js  # 站内搜索索引生成
