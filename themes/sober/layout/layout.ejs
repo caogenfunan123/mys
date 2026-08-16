@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%- config.language || 'zh-CN' %>" data-theme="auto" data-bg="blue">
+<html lang="<%- config.language || 'zh-CN' %>" data-theme="auto" data-color="blue">
 <%
   var handle = '';
   if (theme.sidebar && theme.sidebar.github) {
@@ -28,9 +28,9 @@
   <% if (theme.favicon) { %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
-  <link rel="stylesheet" href="<%- url_for('/css/main.css') ?>?v=12">
+  <link rel="stylesheet" href="<%- url_for('/css/main.css') ?>?v=13">
   <link rel="stylesheet" href="<%- url_for('/css/dynamic-extra.css') ?>?v=3">
-  <link rel="stylesheet" href="<%- url_for('/css/color-search.css') ?>?v=3">
+  <link rel="stylesheet" href="<%- url_for('/css/color-search.css') ?>?v=4">
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('/atom.xml') %>">
 </head>
 <body>
@@ -49,16 +49,16 @@
     </div>
   </header>
 
-  <!-- 配色选择面板（整套背景渐变方案） -->
+  <!-- 配色选择面板（强调色方案） -->
   <div class="color-overlay" id="colorOverlay"></div>
   <div class="color-pop" id="colorPop">
-    <div class="color-pop-title">🎨 选择背景配色</div>
+    <div class="color-pop-title">🎨 选择强调色</div>
     <div class="color-options" id="colorOptions">
-      <button class="color-option active" data-bg="blue" style="background: linear-gradient(135deg,#bfdbfe,#ddd6fe,#fbcfe8)" title="晨曦蓝紫"></button>
-      <button class="color-option" data-bg="teal" style="background: linear-gradient(135deg,#99f6e4,#a7f3d0,#d1fae5)" title="薄荷青绿"></button>
-      <button class="color-option" data-bg="peach" style="background: linear-gradient(135deg,#fed7aa,#fecdd3,#fde68a)" title="蜜桃暖橙"></button>
-      <button class="color-option" data-bg="violet" style="background: linear-gradient(135deg,#ddd6fe,#e9d5ff,#fae8ff)" title="星夜紫罗兰"></button>
-      <button class="color-option" data-bg="rose" style="background: linear-gradient(135deg,#fecdd3,#fbcfe8,#fae8ff)" title="樱花粉"></button>
+      <button class="color-option active" data-color="blue" style="background: linear-gradient(135deg,#3b82f6,#0ea5e9)" title="清爽蓝"></button>
+      <button class="color-option" data-color="teal" style="background: linear-gradient(135deg,#0d9488,#14b8a6)" title="青绿"></button>
+      <button class="color-option" data-color="orange" style="background: linear-gradient(135deg,#ea580c,#f59e0b)" title="暖橙"></button>
+      <button class="color-option" data-color="violet" style="background: linear-gradient(135deg,#7c3aed,#a78bfa)" title="紫罗兰"></button>
+      <button class="color-option" data-color="rose" style="background: linear-gradient(135deg,#e11d48,#fb7185)" title="玫红"></button>
     </div>
   </div>
 
@@ -157,6 +157,6 @@
   </footer>
 
   <script src="<%- url_for('/js/main.js') ?>?v=9"></script>
-  <script src="<%- url_for('/js/search.js') ?>?v=2"></script>
+  <script src="<%- url_for('/js/search.js') ?>?v=3"></script>
 </body>
 </html>
