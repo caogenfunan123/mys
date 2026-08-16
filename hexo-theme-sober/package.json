@@ -1,0 +1,19 @@
+{
+  "name": "hexo-theme-sober",
+  "version": "1.0.0",
+  "description": "A clean and elegant Hexo theme: sidebar layout, dark mode, accent color switcher, built-in search and dynamics.",
+  "main": "package.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hexo",
+    "theme",
+    "hexo-theme",
+    "blog",
+    "minimal",
+    "sidebar"
+  ],
+  "license": "MIT",
+  "dependencies": {}
+}
